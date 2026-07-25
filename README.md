@@ -10,7 +10,6 @@ The project initially focuses on the reactor itself, rather than on the complete
 
 ## Project Philosophy
 
-This project is not intended to be only a collection of physical equations translated into C functions.
 
 Its main goal is to construct an explicit model of:
 
