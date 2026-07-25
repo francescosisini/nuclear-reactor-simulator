@@ -1,0 +1,4 @@
+nuclear_sim
+*.o
+output/
+.vscode/
