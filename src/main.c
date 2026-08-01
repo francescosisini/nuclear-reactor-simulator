@@ -1,115 +1,203 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "fluid/fluid.h"
+#include "flow.h"
 
 int main(void)
 {
     const double dt = 0.1;
 
-    FlowElement *pump = pump_create(
-        "primary_pump",
-        200000.0,   /* aumento di pressione: Pa */
-        1           /* pompa accesa */
-    );
+    const double initial_pressure = 1000000.0; /* Pa */
 
-    FlowElement *pipe = passive_pipe_create(
-        "primary_pipe",
-        150000.0    /* perdita di pressione: Pa */
-    );
-
-    FlowElement *gauge = pressure_gauge_create(
-        "pressure_gauge"
-    );
-
-    if (pump == NULL || pipe == NULL || gauge == NULL) {
-        fprintf(stderr, "Errore nella creazione del circuito.\n");
-
-        flow_destroy(pump);
-        flow_destroy(pipe);
-        flow_destroy(gauge);
-
-        return EXIT_FAILURE;
-    }
-
-    /* Circuito chiuso. */
-    int status1 = flow_connect(pump, pipe);
-    int status2 = flow_connect(pipe, gauge);
-    int status3 = flow_connect(gauge, pump);
-
-    if (status1) {
-        fprintf(stderr, "Errore: pump -> pipe\n");
-    }
-
-    if (status2) {
-        fprintf(stderr, "Errore: pipe -> gauge\n");
-    }
-
-    if (status3) {
-        fprintf(stderr, "Errore: gauge -> pump\n");
-    }
-
-    if (status1 || status2 || status3) {
-        flow_destroy(pump);
-        flow_destroy(pipe);
-        flow_destroy(gauge);
-
-        return EXIT_FAILURE;
-    }
-
-    /* Stato iniziale uniforme del fluido. */
-    FlowState initial_state = {
-        .mass_flow = 10.0,       /* kg/s */
-        .pressure = 1000000.0,   /* Pa */
-        .temperature = 293.15,   /* K */
-        .density = 998.0         /* kg/m^3 */
+    const FluidProperties water = {
+        .temperature = 293.15,
+        .density = 998.0,
+        .viscosity = 0.001002
     };
 
-    flow_set_initial_output(pump, initial_state);
-    flow_set_initial_output(pipe, initial_state);
-    flow_set_initial_output(gauge, initial_state);
+    const double pipe_length = 10.0;
+    const double pipe_diameter = 0.10;
+    const double pipe_roughness = 0.000045;
 
-    FlowElement *circuit[] = {
+    const double pump_delta_p = 1000.0;
+    const double pump_tau = 5.0;
+
+    /*
+     * Ancora provvisorio: verrà derivato fisicamente in seguito.
+     */
+    const double hydraulic_inertance = 100000.0;
+
+    const int max_steps = 50000;
+
+    FlowNode *n0 =
+        flow_node_create(
+            "pump_in",
+            initial_pressure
+        );
+
+    FlowNode *n1 =
+        flow_node_create(
+            "pump_out",
+            initial_pressure
+        );
+
+    FlowNode *n2 =
+        flow_node_create(
+            "pipe1_out",
+            initial_pressure
+        );
+
+    FlowNode *n3 =
+        flow_node_create(
+            "gauge_out",
+            initial_pressure
+        );
+
+    if (n0 == NULL ||
+        n1 == NULL ||
+        n2 == NULL ||
+        n3 == NULL) {
+
+        fprintf(stderr,
+            "Errore nella creazione dei nodi.\n");
+
+        return EXIT_FAILURE;
+    }
+
+    FlowElement *pump =
+        pump_create(
+            "primary_pump",
+            n0,
+            n1,
+            pump_delta_p,
+            pump_tau,
+            1
+        );
+
+    FlowElement *pipe1 =
+        passive_pipe_create(
+            "pipe_1",
+            n1,
+            n2,
+            pipe_length,
+            pipe_diameter,
+            pipe_roughness
+        );
+
+    FlowElement *gauge =
+        pressure_gauge_create(
+            "pressure_gauge",
+            n2,
+            n3
+        );
+
+    FlowElement *pipe2 =
+        passive_pipe_create(
+            "pipe_2",
+            n3,
+            n0,
+            pipe_length,
+            pipe_diameter,
+            pipe_roughness
+        );
+
+    if (pump == NULL ||
+        pipe1 == NULL ||
+        gauge == NULL ||
+        pipe2 == NULL) {
+
+        fprintf(stderr,
+            "Errore nella creazione del circuito.\n");
+
+        return EXIT_FAILURE;
+    }
+
+    FlowElement *elements[] = {
         pump,
-        pipe,
-        gauge
+        pipe1,
+        gauge,
+        pipe2
     };
 
-    const size_t element_count =
-        sizeof(circuit) / sizeof(circuit[0]);
+    FlowCircuit circuit;
+
+    int status =
+        flow_circuit_init(
+            &circuit,
+            elements,
+            sizeof(elements) / sizeof(elements[0]),
+            n0,
+            water,
+            0.0,
+            hydraulic_inertance
+        );
+
+    if (status) {
+        fprintf(stderr,
+            "Errore nell'inizializzazione del circuito.\n");
+        return EXIT_FAILURE;
+    }
 
     printf("Hydraulic circuit simulation\n\n");
 
-    for (int step = 0; step < 12; ++step) {
-        /*
-         * Prima fase: ogni elemento legge soltanto gli output
-         * correnti e calcola il proprio next_output.
-         */
-        for (size_t i = 0; i < element_count; ++i) {
-            flow_evaluate(circuit[i], dt);
-        }
+    printf(
+        "Initial pressure = %.0f Pa\n"
+        "Pump target dP = %.0f Pa\n"
+        "Initial mass flow = %.6f kg/s\n\n",
+        initial_pressure,
+        pump_delta_p,
+        circuit.mass_flow
+    );
 
-        /*
-         * Seconda fase: tutti i nuovi output diventano visibili
-         * contemporaneamente.
-         */
-        for (size_t i = 0; i < element_count; ++i) {
-            flow_commit(circuit[i]);
-        }
+    for (int step = 1;
+         step <= max_steps;
+         ++step) {
 
-        printf(
-            "step %2d | pump: %9.0f Pa | pipe: %9.0f Pa"
-            " | gauge: %9.0f Pa\n",
-            step + 1,
-            pump->output.pressure,
-            pipe->output.pressure,
-            pressure_gauge_read(gauge)
+        flow_circuit_step(
+            &circuit,
+            dt
         );
+
+        if (step <= 20 ||
+            step % 1000 == 0) {
+
+            printf(
+                "step %5d | "
+                "m_dot = %9.6f kg/s | "
+                "dPpump = %8.2f Pa | "
+                "residual = %9.3f Pa | "
+                "Pin = %11.2f | "
+                "Pout = %11.2f | "
+                "Ppipe1 = %11.2f | "
+                "Pgauge = %11.2f\n",
+                step,
+                circuit.mass_flow,
+                pump_get_current_pressure_gain(pump),
+                circuit.pressure_residual,
+                n0->pressure,
+                n1->pressure,
+                n2->pressure,
+                pressure_gauge_read(gauge)
+            );
+        }
     }
 
-    flow_destroy(gauge);
-    flow_destroy(pipe);
+    printf(
+        "\nFinal mass flow: %.6f kg/s\n"
+        "Final pressure residual: %.6f Pa\n",
+        circuit.mass_flow,
+        circuit.pressure_residual
+    );
+
     flow_destroy(pump);
+    flow_destroy(pipe1);
+    flow_destroy(gauge);
+    flow_destroy(pipe2);
+
+    flow_node_destroy(n0);
+    flow_node_destroy(n1);
+    flow_node_destroy(n2);
+    flow_node_destroy(n3);
 
     return EXIT_SUCCESS;
 }
