@@ -50,7 +50,7 @@ every circulation around the loop**.
 It simply imposes the constraint:
 
 ```math
-P\_{out}-P\_{in}=`\Delta `{=tex}P\_{pump}
+P_{out}-P_{in}=\Delta P_{pump}
 ```
 
 exactly as an ideal voltage source imposes:
