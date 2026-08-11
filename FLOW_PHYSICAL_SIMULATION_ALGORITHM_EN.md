@@ -6,7 +6,7 @@ The `flow` library models the hydraulic dynamics of a closed circuit containing 
 
 The physical problem is:
 
-> Given a set of active and passive hydraulic components, determine how the mass flow rate evolves in time and which steady operating point is eventually reached.
+> Given a set of active and passive hydraulic components, determine how the volumetric flow rate evolves in time and which steady operating point is eventually reached.
 
 The simulation is based directly on the momentum balance of the fluid.
 
@@ -21,7 +21,7 @@ The numerical algorithm therefore integrates the physical equations of the circu
 Consider a closed serial hydraulic circuit:
 
 ```text
-              m_dot
+              Q
                 →
 [N0] -- PUMP -- [N1] -- PIPE 1 -- [N2] -- GAUGE -- [N3] -- PIPE 2 -- [N0]
  P0              P1                 P2                 P3
@@ -30,7 +30,8 @@ Consider a closed serial hydraulic circuit:
 The model separates three physical quantities:
 
 - **pressure** `P`, associated with a node;
-- **mass flow rate** `\dot{m}`, associated with the flow through the circuit;
+- **volumetric flow rate** `Q`, associated with the flow through the circuit;
+- **mass flow rate** `\dot{m}=\rho Q`, derived from `Q` when needed;
 - **pressure difference** `\Delta P`, associated with a hydraulic component.
 
 Each component connects an inlet node to an outlet node.
@@ -65,83 +66,97 @@ The component therefore does not own an absolute pressure. It defines a relation
 
 ## 3. Governing equation of the loop
 
-For a closed hydraulic loop, define the total pressure residual
+For a closed loop, the sum of the actual node-to-node pressure changes around one complete circuit is always zero:
 
 ```math
-R_P = \sum_i \Delta P_i
+\oint_{\mathcal C} dP = 0
 ```
 
-For the example circuit,
+Equivalently, if the loop is represented by discrete components,
 
 ```math
-R_P =
+\sum_i \Delta P_i^{terminal}=0
+```
+
+where
+
+```math
+\Delta P_i^{terminal}=P_{out,i}-P_{in,i}
+```
+
+is the actual pressure difference between the terminals of component `i`.
+
+The quantity that accelerates the fluid is therefore not the circulation of the pressure field itself. It is the part of the pressure balance that remains after dissipative losses are subtracted from the pressure rise supplied by active components.
+
+For the example circuit, define the **driving pressure residual**
+
+```math
+R_P
+=
 \Delta P_{pump}
-+
-\Delta P_{pipe1}
-+
-\Delta P_{gauge}
-+
-\Delta P_{pipe2}
+-
+\Delta P_{loss,1}
+-
+\Delta P_{loss,2}
 ```
-
-Since the gauge is ideal,
-
-```math
-\Delta P_{gauge}=0
-```
-
-and therefore
-
-```math
-R_P =
-\Delta P_{pump}
-+
-\Delta P_{pipe1}
-+
-\Delta P_{pipe2}
-```
-
-The residual has a direct physical meaning.
 
 If
 
 ```math
-R_P > 0
+R_P>0
 ```
 
-there is a net pressure force in the positive direction and the fluid accelerates.
+the pump supplies more pressure rise than is currently dissipated by friction, so the fluid accelerates.
 
 If
 
 ```math
-R_P < 0
+R_P<0
 ```
 
-the net force opposes the current direction of motion and the fluid decelerates.
+the dissipative losses exceed the active pressure rise, so the fluid decelerates.
 
 If
 
 ```math
-R_P = 0
+R_P=0
 ```
 
-the hydraulic forces are balanced and the mass flow rate no longer changes.
+the hydraulic forces are balanced and the volumetric flow rate no longer changes.
 
-The lumped momentum equation of the circuit is
+The lumped momentum equation of the complete loop is
 
 ```math
-I_h \frac{d\dot{m}}{dt} = R_P
+I_h\frac{dQ}{dt}=R_P
 ```
 
 or
 
 ```math
-\frac{d\dot{m}}{dt} = \frac{R_P}{I_h}
+\frac{dQ}{dt}
+=
+\frac{R_P}{I_h}
 ```
 
-where `I_h` is the equivalent hydraulic inertance of the moving fluid.
+Thus the global dynamic balance is
 
-This equation is the core of the dynamic simulation.
+```math
+\Delta P_{active}
+-
+\Delta P_{dissipative}
+=
+\Delta P_{inertial}
+```
+
+with
+
+```math
+\Delta P_{inertial}
+=
+I_h\frac{dQ}{dt}
+```
+
+This is the core of the dynamic simulation.
 
 ---
 
@@ -149,7 +164,7 @@ This equation is the core of the dynamic simulation.
 
 The hydraulic inertance follows directly from Newton's second law.
 
-Consider a uniform column of incompressible fluid with:
+Consider a uniform section of incompressible fluid with:
 
 - length `L`;
 - cross-sectional area `A`;
@@ -159,13 +174,13 @@ Consider a uniform column of incompressible fluid with:
 The mass of fluid contained in the section is
 
 ```math
-M = \rho A L
+M=\rho A L
 ```
 
-A pressure difference `\Delta P` across the section produces a force
+A net pressure-force imbalance acting on that fluid section is
 
 ```math
-F = \Delta P A
+F=\Delta P_{inertial}A
 ```
 
 Newton's second law gives
@@ -174,30 +189,34 @@ Newton's second law gives
 M\frac{dv}{dt}=F
 ```
 
-Substituting the expressions for mass and pressure force,
+therefore
 
 ```math
-\rho A L\frac{dv}{dt}=\Delta P A
+\rho A L\frac{dv}{dt}
+=
+\Delta P_{inertial}A
 ```
 
-and therefore
+and
 
 ```math
-\rho L\frac{dv}{dt}=\Delta P
+\rho L\frac{dv}{dt}
+=
+\Delta P_{inertial}
 ```
 
 For an incompressible fluid,
 
 ```math
-\dot{m}=\rho A v
+Q=Av
 ```
 
-If `\rho` and `A` are constant,
+and, if `A` is constant,
 
 ```math
-\frac{d\dot{m}}{dt}
+\frac{dQ}{dt}
 =
-\rho A\frac{dv}{dt}
+A\frac{dv}{dt}
 ```
 
 so
@@ -205,26 +224,36 @@ so
 ```math
 \frac{dv}{dt}
 =
-\frac{1}{\rho A}\frac{d\dot{m}}{dt}
+\frac{1}{A}\frac{dQ}{dt}
 ```
 
-Substituting into the momentum equation gives
+Substituting gives
 
 ```math
-\Delta P
+\Delta P_{inertial}
 =
-\frac{L}{A}\frac{d\dot{m}}{dt}
+\frac{\rho L}{A}\frac{dQ}{dt}
 ```
 
-The hydraulic inertance of a uniform section is therefore
+The hydraulic inertance of the section is therefore
 
 ```math
-I_h=\frac{L}{A}
+I_h
+=
+\frac{\rho L}{A}
 ```
 
-when the dynamic variable is the mass flow rate `\dot{m}`.
+so that
 
-For several sections in series carrying the same mass flow rate,
+```math
+\Delta P_{inertial}
+=
+I_h\frac{dQ}{dt}
+```
+
+This equation describes the **inertial contribution** to the pressure balance. It is not, by itself, the complete pressure drop of a real pipe, because a real pipe also dissipates pressure through friction.
+
+For several sections in series carrying the same volumetric flow rate,
 
 ```math
 I_{h,tot}
@@ -237,16 +266,33 @@ and therefore
 ```math
 I_{h,tot}
 =
-\sum_i \frac{L_i}{A_i}
+\sum_i \frac{\rho_iL_i}{A_i}
 ```
 
-The momentum equation for the complete serial circuit becomes
+The global momentum equation becomes
 
 ```math
-\left(\sum_i \frac{L_i}{A_i}\right)
-\frac{d\dot{m}}{dt}
+\left(
+\sum_i \frac{\rho_iL_i}{A_i}
+\right)
+\frac{dQ}{dt}
 =
-\sum_i \Delta P_i
+\Delta P_{active}
+-
+\sum_i \Delta P_{loss,i}
+```
+
+For a loop with one pump,
+
+```math
+\left(
+\sum_i \frac{\rho_iL_i}{A_i}
+\right)
+\frac{dQ}{dt}
+=
+\Delta P_{pump}
+-
+\sum_i \Delta P_{loss,i}
 ```
 
 ---
@@ -297,7 +343,10 @@ The pump pressure rise is a difference between two node pressures. It is not an 
 
 ## 6. Pipe model
 
-A pipe is a passive component whose pressure drop depends on the current flow rate and on its physical geometry.
+A real pipe contributes two physically different terms to the momentum balance:
+
+1. an **inertial term**, associated with acceleration of the fluid contained in the pipe;
+2. a **dissipative term**, associated with wall friction.
 
 For a circular pipe of diameter `D`,
 
@@ -305,33 +354,21 @@ For a circular pipe of diameter `D`,
 A=\frac{\pi D^2}{4}
 ```
 
-The volumetric flow rate is
-
-```math
-Q=\frac{\dot{m}}{\rho}
-```
-
-and the mean fluid velocity is
+The mean fluid velocity is
 
 ```math
 v=\frac{Q}{A}
 ```
 
-or
-
-```math
-v=\frac{\dot{m}}{\rho A}
-```
-
 The Reynolds number is
 
 ```math
-Re=\frac{\rho |v|D}{\mu}
+Re=\frac{\rho|v|D}{\mu}
 ```
 
 where `\mu` is the dynamic viscosity.
 
-The Darcy-Weisbach relation gives the magnitude of the distributed pressure loss:
+The Darcy-Weisbach relation gives the magnitude of the distributed friction loss:
 
 ```math
 \Delta P_{loss}
@@ -339,17 +376,13 @@ The Darcy-Weisbach relation gives the magnitude of the distributed pressure loss
 f\frac{L}{D}\frac{\rho v^2}{2}
 ```
 
-where `f` is the Darcy friction factor.
-
-To include the direction of the force explicitly, the pipe pressure difference is written as
+For a signed formulation that opposes the direction of flow,
 
 ```math
-\Delta P_{pipe}
+\Delta P_{friction}
 =
 -f\frac{L}{D}\frac{\rho v|v|}{2}
 ```
-
-The term `v|v|` ensures that the pressure force generated by friction always opposes the direction of motion.
 
 For laminar flow,
 
@@ -359,10 +392,47 @@ f=\frac{64}{Re}
 
 For turbulent flow, `f` is calculated from Reynolds number and relative roughness using the correlation implemented by the library.
 
-The calculation performed by a pipe is therefore
+During a transient, the total pressure drop from the pipe inlet to its outlet is
+
+```math
+P_{in}-P_{out}
+=
+\frac{\rho L}{A}\frac{dQ}{dt}
++
+\Delta P_{loss}(Q)
+```
+
+or, using the terminal sign convention,
+
+```math
+P_{out}-P_{in}
+=
+-
+\frac{\rho L}{A}\frac{dQ}{dt}
+-
+\Delta P_{loss}(Q)
+```
+
+At steady state,
+
+```math
+\frac{dQ}{dt}=0
+```
+
+and the relation reduces to
+
+```math
+P_{in}-P_{out}
+=
+\Delta P_{loss}(Q)
+```
+
+Therefore a pipe can have a finite pressure drop even when the flow rate is constant.
+
+The friction part of the pipe calculation is
 
 ```text
-m_dot
+Q
   ↓
 velocity
   ↓
@@ -370,34 +440,18 @@ Reynolds number
   ↓
 friction factor
   ↓
-pressure drop
+friction pressure loss
 ```
 
-Whenever `\dot{m}` changes, the pipe pressure loss is recalculated.
+The inertial contribution is determined by the common loop acceleration `dQ/dt` and the pipe inertance `\rho L/A`.
 
 ---
 
-## 7. Evaluation of the pressure residual
+## 7. Evaluation of the driving pressure residual
 
-Once the pressure contribution of every component has been calculated, the circuit evaluates
-
-```math
-R_P=\sum_i \Delta P_i
-```
+The circuit first evaluates the active pressure rise and the dissipative pressure losses.
 
 For a pump followed by two passive pipes,
-
-```math
-R_P
-=
-\Delta P_{pump}
-+
-\Delta P_{pipe1}
-+
-\Delta P_{pipe2}
-```
-
-Because pipe pressure differences are negative in the direction of positive flow, this can also be written in terms of positive loss magnitudes:
 
 ```math
 R_P
@@ -409,24 +463,51 @@ R_P
 \Delta P_{loss,2}
 ```
 
-The residual is the net pressure force available to accelerate the fluid.
+This quantity is not the sum of the actual terminal pressure differences around the closed loop. That sum is always zero when the loop is closed consistently.
 
-It is therefore the hydraulic equivalent of the resultant force in Newton's equation.
+Instead,
+
+```math
+R_P
+=
+\Delta P_{inertial,tot}
+```
+
+and therefore
+
+```math
+R_P
+=
+I_{h,tot}\frac{dQ}{dt}
+```
+
+For several serial fluid sections,
+
+```math
+R_P
+=
+\left(
+\sum_i \frac{\rho_iL_i}{A_i}
+\right)
+\frac{dQ}{dt}
+```
+
+The residual is therefore the hydraulic analogue of the resultant force in Newton's second law.
 
 ---
 
-## 8. Dynamic update of the mass flow rate
+## 8. Dynamic update of the volumetric flow rate
 
 The momentum equation is
 
 ```math
-I_h\frac{d\dot{m}}{dt}=R_P
+I_h\frac{dQ}{dt}=R_P
 ```
 
 so
 
 ```math
-\frac{d\dot{m}}{dt}
+\frac{dQ}{dt}
 =
 \frac{R_P}{I_h}
 ```
@@ -434,9 +515,9 @@ so
 With an explicit Euler integration step,
 
 ```math
-\dot{m}_{n+1}
+Q_{n+1}
 =
-\dot{m}_n
+Q_n
 +
 \frac{R_{P,n}}{I_h}\Delta t
 ```
@@ -445,17 +526,17 @@ This is the fundamental numerical update of the hydraulic state.
 
 The numerical solver does not directly change the pressure to force convergence.
 
-It changes the mass flow rate according to the acceleration produced by the current pressure imbalance.
+It changes the volumetric flow rate according to the acceleration produced by the current pressure imbalance.
 
 ---
 
 ## 9. Reconstruction of node pressures
 
-The dynamic equation determines the evolution of `\dot{m}`.
+The dynamic equation determines the evolution of `Q`.
 
-The node pressures can then be reconstructed from the component pressure differences.
+Once `dQ/dt` is known, the actual node-to-node pressure differences can be reconstructed.
 
-Because only pressure differences enter the incompressible hydraulic momentum balance, one absolute pressure must be chosen as a reference.
+Because only pressure differences enter the incompressible momentum balance, one absolute pressure must be chosen as a reference.
 
 Let
 
@@ -463,7 +544,7 @@ Let
 P_0=P_{reference}
 ```
 
-Starting from this node, the pressure after the pump is
+After the pump,
 
 ```math
 P_1
@@ -471,60 +552,81 @@ P_1
 P_0+\Delta P_{pump}
 ```
 
-After the first pipe,
+For pipe 1, the transient pressure drop is
+
+```math
+P_1-P_2
+=
+I_{h,1}\frac{dQ}{dt}
++
+\Delta P_{loss,1}(Q)
+```
+
+so
 
 ```math
 P_2
 =
-P_1+\Delta P_{pipe1}
+P_1
+-
+I_{h,1}\frac{dQ}{dt}
+-
+\Delta P_{loss,1}(Q)
 ```
 
-After an ideal gauge,
+For an ideal gauge,
 
 ```math
-P_3
+P_3=P_2
+```
+
+For pipe 2,
+
+```math
+P_3-P_0
 =
-P_2+\Delta P_{gauge}
+I_{h,2}\frac{dQ}{dt}
++
+\Delta P_{loss,2}(Q)
 ```
 
-and after the final pipe,
+Summing all component relations around the loop gives
 
 ```math
-P_0^{calc}
+\Delta P_{pump}
+-
+\Delta P_{loss,1}
+-
+\Delta P_{loss,2}
+-
+\left(
+I_{h,1}+I_{h,2}
+\right)
+\frac{dQ}{dt}
 =
-P_3+\Delta P_{pipe2}
+0
 ```
 
-At hydraulic equilibrium,
+which is exactly the global momentum equation.
+
+The pressure profile therefore closes at every instant when both inertial and dissipative contributions are included consistently.
+
+At steady state,
 
 ```math
-P_0^{calc}=P_0
+\frac{dQ}{dt}=0
 ```
 
-because
-
-```math
-\sum_i \Delta P_i=0
-```
-
-During a transient,
-
-```math
-P_0^{calc}-P_0=R_P
-```
-
-represents the instantaneous unbalanced pressure force around the lumped loop.
-
-That residual is used in the momentum equation to accelerate the fluid. It is not used to redefine the absolute pressure reference.
+and only the friction losses remain in the pipe pressure drops.
 
 ---
 
 ## 10. One complete simulation step
 
-Assume that at time `t_n` the circuit has mass flow rate
+Assume that at time `t_n` the circuit has volumetric flow rate
 
 ```math
-\dot{m}_n
+Q_n
 ```
 
 The simulation advances to `t_{n+1}` as follows.
@@ -541,7 +643,7 @@ If pump startup dynamics are enabled, update the internal pump state before eval
 
 ### 10.2 Evaluate every passive component
 
-For each pipe, use `\dot{m}_n` to calculate:
+For each pipe, use `Q_n` to calculate:
 
 ```math
 v_n
@@ -565,22 +667,34 @@ and finally
 \Delta P_{pipe,n}
 ```
 
-### 10.3 Sum all pressure differences
+### 10.3 Calculate the driving pressure residual
 
-Calculate
+Calculate the active pressure rise minus the dissipative losses:
 
 ```math
 R_{P,n}
 =
-\sum_i \Delta P_{i,n}
+\Delta P_{active,n}
+-
+\sum_i \Delta P_{loss,i,n}
 ```
 
-### 10.4 Calculate the flow acceleration
+For a single-pump loop,
+
+```math
+R_{P,n}
+=
+\Delta P_{pump,n}
+-
+\sum_i \Delta P_{loss,i,n}
+```
+
+### 10.4 Calculate the rate-of-change of volumetric flow
 
 Apply
 
 ```math
-\frac{d\dot{m}}{dt}\bigg|_n
+\frac{dQ}{dt}\bigg|_n
 =
 \frac{R_{P,n}}{I_h}
 ```
@@ -590,9 +704,9 @@ Apply
 Integrate over `\Delta t`:
 
 ```math
-\dot{m}_{n+1}
+Q_{n+1}
 =
-\dot{m}_n
+Q_n
 +
 \frac{R_{P,n}}{I_h}\Delta t
 ```
@@ -605,9 +719,9 @@ Set
 P_0=P_{reference}
 ```
 
-and propagate the component pressure differences once around the circuit to obtain `P_1`, `P_2`, `P_3`, and the other node pressures.
+and reconstruct the node pressures using the full terminal relation of each component. For a pipe, this includes both the inertial term `I_{h,i} dQ/dt` and the friction loss `\Delta P_{loss,i}`.
 
-The new mass flow rate then becomes the input to the next simulation step.
+The new volumetric flow rate then becomes the input to the next simulation step.
 
 ---
 
@@ -616,25 +730,25 @@ The new mass flow rate then becomes the input to the next simulation step.
 The complete feedback loop is
 
 ```text
-current mass flow rate
+current volumetric flow rate
         │
         ▼
 evaluate pump and passive components
         │
         ▼
-calculate every ΔP_i
+calculate pump rise and friction losses
         │
         ▼
-R_P = Σ ΔP_i
+R_P = ΔP_active - Σ ΔP_loss
         │
         ▼
-d(m_dot)/dt = R_P / I_h
+d(Q)/dt = R_P / I_h
         │
         ▼
 integrate over Δt
         │
         ▼
-new mass flow rate
+new volumetric flow rate
         │
         └──────────────► next iteration
 ```
@@ -675,7 +789,7 @@ At steady state, the pressure profile closes exactly after one complete loop.
 Suppose the fluid is initially stationary:
 
 ```math
-\dot{m}(0)=0
+Q(0)=0
 ```
 
 At zero flow, friction losses are zero or very small.
@@ -689,12 +803,12 @@ R_P>0
 and therefore
 
 ```math
-\frac{d\dot{m}}{dt}>0
+\frac{dQ}{dt}>0
 ```
 
 The fluid begins to accelerate.
 
-As the mass flow rate increases,
+As the volumetric flow rate increases,
 
 ```math
 |\Delta P_{pipe}|
@@ -723,10 +837,10 @@ R_P=0
 and therefore
 
 ```math
-\frac{d\dot{m}}{dt}=0
+\frac{dQ}{dt}=0
 ```
 
-The mass flow rate then remains constant.
+The volumetric flow rate then remains constant.
 
 The steady operating point is thus generated automatically by the balance between the pump and the hydraulic resistance of the circuit.
 
@@ -737,13 +851,15 @@ The steady operating point is thus generated automatically by the balance betwee
 At steady state,
 
 ```math
-\frac{d\dot{m}}{dt}=0
+\frac{dQ}{dt}=0
 ```
 
-so the momentum equation becomes
+so the inertial term vanishes and the loop balance becomes
 
 ```math
-\sum_i \Delta P_i=0
+\Delta P_{active}
+=
+\sum_i \Delta P_{loss,i}
 ```
 
 For the simple circuit,
@@ -751,9 +867,9 @@ For the simple circuit,
 ```math
 \Delta P_{pump}
 +
-\Delta P_{pipe1}(\dot{m})
+\Delta P_{pipe1}(Q)
 +
-\Delta P_{pipe2}(\dot{m})
+\Delta P_{pipe2}(Q)
 =
 0
 ```
@@ -763,25 +879,27 @@ or equivalently,
 ```math
 \Delta P_{pump}
 =
-\Delta P_{loss,1}(\dot{m})
+\Delta P_{loss,1}(Q)
 +
-\Delta P_{loss,2}(\dot{m})
+\Delta P_{loss,2}(Q)
 ```
 
-The operating mass flow rate `\dot{m}^*` is the value that satisfies this nonlinear equation.
+The operating volumetric flow rate `Q^*` is the value that satisfies this nonlinear equation.
 
 Define
 
 ```math
-F(\dot{m})
+F(Q)
 =
-\sum_i \Delta P_i(\dot{m})
+\Delta P_{active}(Q)
+-
+\sum_i \Delta P_{loss,i}(Q)
 ```
 
 The steady-state problem is simply
 
 ```math
-F(\dot{m}^*)=0
+F(Q^*)=0
 ```
 
 This is a root-finding problem.
@@ -799,7 +917,7 @@ The same component physics supports two different numerical problems.
 Solve the differential equation
 
 ```math
-I_h\frac{d\dot{m}}{dt}
+I_h\frac{dQ}{dt}
 =
 \sum_i \Delta P_i
 ```
@@ -807,7 +925,7 @@ I_h\frac{d\dot{m}}{dt}
 to obtain
 
 ```math
-\dot{m}(t)
+Q(t)
 ```
 
 This describes startup, shutdown, and other transients represented by the lumped model.
@@ -817,7 +935,11 @@ This describes startup, shutdown, and other transients represented by the lumped
 Solve directly
 
 ```math
-\sum_i \Delta P_i(\dot{m})=0
+\Delta P_{active}(Q)
+-
+\sum_i \Delta P_{loss,i}(Q)
+=
+0
 ```
 
 to obtain the operating point without simulating the transient.
@@ -842,12 +964,12 @@ roughness         = 0.000045 m
 
 and two identical pipes.
 
-The equilibrium mass flow rate obtained in the current test is approximately
+The equilibrium volumetric flow rate obtained in the current test is approximately
 
 ```math
-\dot{m}
+Q
 \simeq
-5.42002\ kg/s
+5.42002\times10^{-3}\ m^3/s
 ```
 
 At this operating point, each identical pipe dissipates approximately
@@ -923,7 +1045,7 @@ and calculates
 ```math
 \Delta P_{pipe}
 =
-f(\dot{m},L,D,\epsilon,\rho,\mu)
+f(Q,L,D,\epsilon,\rho,\mu)
 ```
 
 ### Ideal gauge
@@ -939,7 +1061,7 @@ The current ideal gauge reads pressure without affecting the hydraulic circuit:
 The circuit owns quantities that describe the hydraulic system as a whole:
 
 ```text
-mass flow rate
+volumetric flow rate
 hydraulic inertance
 pressure residual
 time step
@@ -957,7 +1079,7 @@ A minimal dynamic solver can be expressed as:
 ```text
 initialize nodes
 initialize components
-initialize m_dot
+initialize Q
 initialize pump state
 
 calculate I_h
@@ -966,18 +1088,20 @@ for each time step:
 
     update pump state
 
-    for each component:
-        calculate ΔP_i using current m_dot
+    calculate active pressure rise
 
-    R_P = sum(ΔP_i)
+    for each passive component:
+        calculate friction loss using current Q
 
-    dm_dot_dt = R_P / I_h
+    R_P = active pressure rise - total friction loss
 
-    m_dot = m_dot + dm_dot_dt * dt
+    dQ_dt = R_P / I_h
+
+    Q = Q + dQ_dt * dt
 
     set reference pressure
 
-    reconstruct node pressures from ΔP_i
+    reconstruct node pressures from inertial and dissipative terms
 
     record the state
 ```
@@ -989,7 +1113,7 @@ pressure imbalance
         ↓
 fluid acceleration
         ↓
-change in mass flow rate
+change in volumetric flow rate
         ↓
 change in hydraulic losses
         ↓
@@ -1008,16 +1132,18 @@ The physical equilibrium condition is
 R_P=0
 ```
 
-or
+or, equivalently,
 
 ```math
-\sum_i \Delta P_i=0
+\Delta P_{active}
+=
+\sum_i \Delta P_{loss,i}
 ```
 
 This implies
 
 ```math
-\frac{d\dot{m}}{dt}=0
+\frac{dQ}{dt}=0
 ```
 
 Numerical convergence means that the discrete solution is sufficiently close to this physical state.
@@ -1031,12 +1157,12 @@ For example, the solver may stop when
 and
 
 ```math
-|\dot{m}_{n+1}-\dot{m}_n|
+|Q_{n+1}-Q_n|
 <
-\varepsilon_{\dot{m}}
+\varepsilon_{Q}
 ```
 
-The tolerances `\varepsilon_P` and `\varepsilon_{\dot{m}}` determine the numerical accuracy required by the simulation.
+The tolerances `\varepsilon_P` and `\varepsilon_{Q}` determine the numerical accuracy required by the simulation.
 
 They do not determine the physical operating point.
 
@@ -1047,9 +1173,9 @@ They do not determine the physical operating point.
 The current explicit Euler update is
 
 ```math
-\dot{m}_{n+1}
+Q_{n+1}
 =
-\dot{m}_n
+Q_n
 +
 \Delta t
 \frac{R_{P,n}}{I_h}
@@ -1060,18 +1186,18 @@ This is the simplest time integration of the governing differential equation.
 The physical model can be written abstractly as
 
 ```math
-\frac{d\dot{m}}{dt}
+\frac{dQ}{dt}
 =
-G(\dot{m},t)
+G(Q,t)
 ```
 
 with
 
 ```math
-G(\dot{m},t)
+G(Q,t)
 =
 \frac{1}{I_h}
-\sum_i \Delta P_i(\dot{m},t)
+\sum_i \Delta P_i(Q,t)
 ```
 
 A different numerical integrator can therefore replace Euler without changing the hydraulic component models.
@@ -1099,7 +1225,7 @@ The algorithm currently assumes:
 - an incompressible fluid;
 - a rigid hydraulic circuit;
 - a single serial flow path;
-- the same mass flow rate through every component;
+- the same volumetric flow rate through every component;
 - lumped hydraulic inertia;
 - quasi-steady friction losses;
 - constant fluid properties in the basic model;
@@ -1111,7 +1237,7 @@ The algorithm currently assumes:
 Under these assumptions, the complete hydraulic dynamics can be represented by one main state variable:
 
 ```math
-\dot{m}(t)
+Q(t)
 ```
 
 together with any internal dynamic states of active components, such as the pump startup state.
@@ -1125,7 +1251,7 @@ A branched network requires more state variables, but the physical principles re
 At each node, mass conservation requires
 
 ```math
-\sum_j \dot{m}_j=0
+\sum_j Q_j=0
 ```
 
 with the signs chosen according to the direction of each connected branch.
@@ -1133,7 +1259,7 @@ with the signs chosen according to the direction of each connected branch.
 Each branch has its own momentum relation:
 
 ```math
-I_{h,j}\frac{d\dot{m}_j}{dt}
+I_{h,j}\frac{dQ_j}{dt}
 =
 \Delta P_j
 -
@@ -1145,7 +1271,7 @@ and each component still supplies a relation of the form
 ```math
 \Delta P_i
 =
-f_i(\dot{m}_i,\text{component parameters})
+f_i(Q_i,\text{component parameters})
 ```
 
 Node pressures couple the branch equations.
@@ -1163,14 +1289,14 @@ The physical algorithm can be summarized by Newton's second law applied to the f
 =
 \text{hydraulic inertia}
 \times
-\text{flow acceleration}
+\text{rate-of-change of volumetric flow}
 ```
 
 or, for the lumped loop,
 
 ```math
 \boxed{
-I_h\frac{d\dot{m}}{dt}
+I_h\frac{dQ}{dt}
 =
 \sum_i \Delta P_i
 }
@@ -1180,7 +1306,7 @@ The pump contributes positive pressure rise.
 
 Passive components contribute pressure drops.
 
-The resulting imbalance changes the flow rate.
+The active-minus-dissipative pressure imbalance changes the flow rate.
 
 The new flow rate changes the passive losses.
 
@@ -1196,7 +1322,7 @@ At that point,
 
 ```math
 \boxed{
-\frac{d\dot{m}}{dt}=0
+\frac{dQ}{dt}=0
 }
 ```
 
