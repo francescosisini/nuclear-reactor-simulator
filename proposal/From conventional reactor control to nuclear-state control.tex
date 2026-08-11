@@ -1,0 +1,381 @@
+# 2. From Conventional Reactor Control to Nuclear-State Control
+
+Conventional reactor control is based on the manipulation of macroscopic variables that influence the neutron balance. At the simplest level, the evolution of a multiplying system may be represented through the effective multiplication factor (k_{\mathrm{eff}}), or equivalently through the reactivity
+
+[
+\rho = \frac{k_{\mathrm{eff}}-1}{k_{\mathrm{eff}}}.
+]
+
+The control problem is therefore traditionally formulated as the modification of the mechanisms that determine neutron production, absorption and leakage.
+
+For a fissile population (N_f), the neutron-induced fission rate can be written schematically as
+
+[
+R_f(t)
+======
+
+N_f
+\int
+\sigma_f(E),
+\Phi(E,t),
+dE ,
+]
+
+where (\Phi(E,t)) is the neutron flux and (\sigma_f(E)) is the energy-dependent microscopic fission cross section.
+
+In this formulation, the principal time-dependent quantity accessible to reactor control is the neutron field. Control rods, soluble absorbers, moderator conditions, coolant density, fuel temperature and geometrical changes ultimately act by modifying either the neutron flux or the probability that neutrons are absorbed, scattered or lost from the multiplying system.
+
+A simplified control chain may therefore be represented as
+
+[
+u_C(t)
+\longrightarrow
+\mathcal{A}_C
+\longrightarrow
+\Phi(E,t)
+\longrightarrow
+R_f(t),
+]
+
+where (u_C(t)) denotes a conventional control command and (\mathcal{A}_C) represents the corresponding actuator, such as a control rod, absorber concentration or moderator-control mechanism.
+
+The nuclear properties entering (\sigma_f(E)) are not normally regarded as dynamically controllable quantities. For a given isotope, temperature range and nuclear-data model, the microscopic reaction probabilities are effectively treated as constitutive properties of the material.
+
+This separation between a dynamically controlled neutron population and an effectively fixed nuclear response is one of the implicit assumptions of conventional reactor engineering.
+
+The present work investigates the consequences of relaxing this assumption.
+
+## 2.1 Nuclear state as an explicit variable
+
+Let the state of the fissile nucleus be represented by a density operator
+
+[
+\rho_N .
+]
+
+The use of a density operator rather than a pure state is appropriate because a macroscopic fissile material will generally consist of an ensemble of nuclei occupying different quantum states and interacting with a complex environment.
+
+The conventional fission cross section may then be interpreted as an ensemble-averaged quantity associated with an effectively uncontrolled nuclear-state distribution,
+
+[
+\sigma_f(E)
+===========
+
+\sigma_f(E;\rho_N^{(0)}),
+]
+
+where (\rho_N^{(0)}) denotes the natural or equilibrium state distribution relevant to the nuclear-data measurement.
+
+If an external interaction can modify the nuclear-state distribution,
+
+[
+\rho_N^{(0)}
+\rightarrow
+\rho_N(t),
+]
+
+the corresponding fission response should, in the most general description, be written as
+
+[
+\sigma_f
+========
+
+\sigma_f(E;\rho_N).
+]
+
+The fission rate would consequently become
+
+[
+R_f(t)
+======
+
+N_f
+\int
+\sigma_f(E;\rho_N(t))
+,
+\Phi(E,t)
+,
+dE.
+]
+
+This expression contains two, conceptually distinct, control channels.
+
+The first is the conventional one:
+
+[
+\Phi(E,t)
+\rightarrow
+R_f(t).
+]
+
+The second is the mechanism considered in this work:
+
+[
+\rho_N(t)
+\rightarrow
+\sigma_f^{\mathrm{eff}}(t)
+\rightarrow
+R_f(t).
+]
+
+Thus, rather than acting exclusively on the incident neutron population, an external control field could in principle act on the response of the fissile material itself.
+
+## 2.2 A second control channel
+
+We introduce a generic external control variable (u_Q(t)), representing an interaction capable of modifying the nuclear state. Its physical implementation is deliberately left unspecified at this stage. Depending on the regime considered, (u_Q) could represent a coherent electromagnetic field, a sequence of X-ray or gamma-ray pulses, or another interaction capable of selectively populating or coupling nuclear states.
+
+The proposed control chain is then
+
+[
+u_Q(t)
+\longrightarrow
+\rho_N(t)
+\longrightarrow
+\sigma_f^{\mathrm{eff}}(t)
+\longrightarrow
+R_f(t).
+]
+
+The complete fission system would therefore possess two parallel control pathways:
+
+[
+u_C(t)
+\longrightarrow
+\Phi(E,t)
+]
+
+and
+
+[
+u_Q(t)
+\longrightarrow
+\rho_N(t).
+]
+
+Both ultimately influence
+
+[
+R_f(t).
+]
+
+The distinction between the two pathways is fundamental.
+
+Conventional reactor control modifies the probability that a neutron reaches and interacts with a fissile nucleus.
+
+The proposed mechanism modifies, in principle, the probability that a nucleus in a given state undergoes fission once an interaction occurs.
+
+This may be summarized as
+
+[
+\boxed{
+\text{Conventional control: control of the neutron population}
+}
+]
+
+versus
+
+[
+\boxed{
+\text{Nuclear-state control: control of the fission response of the fuel}
+}
+]
+
+The two mechanisms are therefore not mutually exclusive. A future system capable of nuclear-state manipulation would still obey neutron transport and reactor kinetics. The proposed degree of freedom would instead appear as an additional contribution to the effective nuclear response.
+
+## 2.3 State-dependent fission probability
+
+To make the hypothesis explicit, consider a set of nuclear states ({|i\rangle}), each characterized by a state-dependent fission cross section
+
+[
+\sigma_f^{(i)}(E).
+]
+
+For an incoherent statistical mixture with populations (p_i), the effective cross section becomes
+
+[
+\sigma_f^{\mathrm{eff}}(E)
+==========================
+
+\sum_i
+p_i
+\sigma_f^{(i)}(E).
+]
+
+Even this simplest formulation already implies a possible control mechanism: if an external interaction changes the state populations (p_i), then it also changes the effective fission response.
+
+For example,
+
+[
+p_i^{(0)}
+\rightarrow
+p_i(t)
+]
+
+would imply
+
+[
+\sigma_f^{(0)}(E)
+\rightarrow
+\sigma_f^{\mathrm{eff}}(E,t).
+]
+
+In this regime, genuine long-lived quantum coherence is not even strictly required. Population transfer among nuclear states would already be sufficient to create a state-dependent control channel.
+
+A more general quantum description includes off-diagonal elements of the density matrix,
+
+[
+\rho_{ij},
+\qquad i\neq j,
+]
+
+which encode coherence between nuclear states. In such a case, the fission probability may contain interference terms and cannot, in general, be represented solely as an incoherent weighted sum of state-specific cross sections.
+
+Formally, one may write the fission probability for an incident neutron energy (E) as
+
+[
+P_f(E)
+======
+
+\mathrm{Tr}
+\left[
+\rho_N
+,
+\hat{\Pi}_f(E)
+\right],
+]
+
+where (\hat{\Pi}_f(E)) represents an effective operator associated with evolution into the fission channel.
+
+This equation provides a compact formulation of the central idea of the present work: if the external control modifies (\rho_N), and if (\hat{\Pi}_f) is state-dependent, then the fission probability becomes externally controllable.
+
+## 2.4 From microscopic control to macroscopic reactivity
+
+For reactor applications, however, modifying the fission probability of an individual nucleus is insufficient. The effect must survive ensemble averaging and produce a measurable modification of macroscopic neutron multiplication.
+
+Let
+
+[
+\delta \sigma_f
+===============
+
+## \sigma_f^{\mathrm{controlled}}
+
+\sigma_f^{(0)}
+]
+
+denote the modification induced by nuclear-state control.
+
+At the macroscopic level, this produces
+
+[
+\delta \Sigma_f
+===============
+
+N_f,
+\delta \sigma_f,
+]
+
+where
+
+[
+\Sigma_f=N_f\sigma_f
+]
+
+is the macroscopic fission cross section.
+
+A non-zero (\delta \Sigma_f) modifies neutron production and therefore, in principle, the multiplication properties of the system.
+
+Schematically,
+
+[
+\delta\rho_N
+\rightarrow
+\delta\sigma_f
+\rightarrow
+\delta\Sigma_f
+\rightarrow
+\delta k_{\mathrm{eff}}
+\rightarrow
+\delta\rho .
+]
+
+The crucial physical question is therefore not simply whether nuclear states can be manipulated, but whether the resulting modification satisfies
+
+[
+\left|
+\frac{\delta\sigma_f}{\sigma_f}
+\right|
+]
+
+at a magnitude and on a timescale relevant to macroscopic neutron kinetics.
+
+This establishes the first quantitative criterion for the proposed control mechanism.
+
+A nuclear-state actuator becomes potentially relevant to reactor physics only if
+
+[
+\delta \rho_Q
+\neq 0,
+]
+
+where (\delta \rho_Q) denotes the contribution to reactor reactivity arising from externally induced modifications of the nuclear-state distribution.
+
+We may therefore write, schematically,
+
+[
+\rho_{\mathrm{tot}}
+===================
+
+\rho_{\mathrm{conv}}
++
+\rho_Q ,
+]
+
+where (\rho_{\mathrm{conv}}) contains the conventional contributions associated with geometry, temperature, composition, neutron absorbers and other macroscopic effects, while (\rho_Q) denotes the hypothetical nuclear-state contribution.
+
+This decomposition is not intended to imply linear independence under all conditions. Rather, it provides a useful first-order framework in which the proposed mechanism can be compared with established reactor-control effects.
+
+## 2.5 Necessary physical conditions
+
+For nuclear-state control to constitute a physically meaningful additional degree of freedom, several conditions must simultaneously be satisfied.
+
+First, an external interaction must be capable of producing a reproducible modification of the nuclear-state distribution,
+
+[
+u_Q(t)
+\rightarrow
+\delta\rho_N(t).
+]
+
+Second, the states or coherences involved must exhibit different fission responses,
+
+[
+\frac{\partial P_f}{\partial\rho_N}
+\neq 0.
+]
+
+Third, the induced state modification must persist long enough for the relevant fission interaction to occur.
+
+Fourth, the fraction of nuclei affected by the external control must be sufficiently large for the microscopic modification to survive ensemble averaging.
+
+Finally, the resulting variation of the macroscopic fission response must compete with the natural statistical fluctuations and conventional reactivity-feedback mechanisms of the system.
+
+These requirements may be summarized by the chain
+
+[
+\boxed{
+u_Q
+\rightarrow
+\delta\rho_N
+\rightarrow
+\delta P_f
+\rightarrow
+\delta\Sigma_f
+\rightarrow
+\delta k_{\mathrm{eff}}
+}
+]
+
+Every arrow in this chain constitutes a separate physical problem.
+
+The purpose of the following sections is therefore not to assume that such a chain can be realized, but to determine where existing nuclear physics already supports it, where theoretical modelling is required, and where the principal physical limitations arise.

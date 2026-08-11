@@ -1,0 +1,403 @@
+# 3. Physical Basis for Nuclear-State Control of Fission
+
+The framework introduced above requires two independent physical ingredients.
+
+First, nuclear states must be externally addressable or controllable, at least in some restricted class of nuclei and transitions.
+
+Second, the probability of fission must depend on the nuclear state that is populated.
+
+Neither statement, taken individually, is speculative. Both are already supported by established nuclear physics. What remains unestablished is whether they can be combined in a regime capable of producing a useful controllable modification of fission.
+
+## 3.1 External manipulation of nuclear states
+
+The first requirement is
+
+[
+u_Q(t)
+\longrightarrow
+\delta\rho_N(t).
+]
+
+Historically, direct coherent manipulation of nuclear states has been considerably more difficult than coherent control of electronic states. Typical nuclear excitation energies lie in the keV-MeV range, rather than the eV range characteristic of atomic optical transitions, while many nuclear states possess extremely narrow linewidths or very short lifetimes.
+
+Nevertheless, nuclear quantum optics has demonstrated that nuclear degrees of freedom can be addressed by coherent electromagnetic interactions.
+
+A particularly clear experimental example is provided by Mössbauer nuclei. In 2021, Heeg *et al.* demonstrated coherent X-ray-optical control of collective nuclear excitations in (^{57}\mathrm{Fe}). A sequence of X-ray pulses with controlled relative phase was used to manipulate the dynamics of a nuclear exciton, i.e. an excitation coherently distributed over an ensemble of resonant nuclei. This establishes experimentally that phase-sensitive external control can modify the evolution of a nuclear quantum system.
+
+The case of (^{229}\mathrm{Th}) provides a complementary and particularly important demonstration. The exceptionally low-energy isomeric state of this nucleus can be addressed using vacuum-ultraviolet radiation. Direct laser excitation of the nuclear transition was demonstrated in 2024, and subsequent experiments have explicitly investigated the controlled excitation and depopulation of the isomeric population.
+
+Coherent population-transfer schemes have also been proposed theoretically for (^{229}\mathrm{Th}). Methods directly inherited from quantum optics, including stimulated Raman adiabatic passage and sequences of (\pi)-pulses, have been investigated as mechanisms for transferring population between nuclear states.
+
+These results are important for the present proposal because they establish a principle considerably stronger than simple nuclear excitation.
+
+They show that, in appropriate systems,
+
+[
+\boxed{
+\text{external coherent field}
+\rightarrow
+\text{controlled nuclear-state population or evolution}
+}
+]
+
+is physically meaningful.
+
+The nuclear state therefore cannot universally be regarded as an inaccessible internal degree of freedom.
+
+The major unresolved question is whether comparable control can be extended to states relevant to fission.
+
+## 3.2 Nuclear excitation at fission-relevant energies
+
+The low excitation energy of (^{229}\mathrm{Th}) is exceptional and cannot be taken as representative of fissile actinides. Nuclear states involved in induced fission typically occur at much higher excitation energies.
+
+However, theoretical work has also investigated the interaction of intense coherent radiation fields with nuclei at MeV photon energies.
+
+Models of laser-nucleus interactions have considered multiple nuclear dipole excitations produced by high-intensity photon pulses and have explicitly included competition between electromagnetic excitation, intrinsic nuclear equilibration, neutron evaporation and fission. Such studies indicate that external radiation can, in principle, drive a heavy nucleus through regions of excitation energy in which fission becomes one of the available decay channels.
+
+Future high-intensity gamma-ray sources may further extend the accessible parameter space. Concepts such as the Gamma Factory envisage highly collimated photon beams extending to hundreds of MeV with photon fluxes far above those presently available, creating new possibilities for precision photonuclear studies.
+
+These developments do not demonstrate coherent control of fission. They do, however, weaken one possible objection to the present framework: the energy scale of nuclear excitation does not constitute an absolute prohibition against externally driven nuclear-state manipulation.
+
+The relevant issue becomes quantitative rather than categorical:
+
+[
+\text{Can a sufficiently selective state modification be produced before nuclear equilibration destroys the information introduced by the external field?}
+]
+
+This competition will constitute one of the principal physical constraints of the proposed mechanism.
+
+## 3.3 Fission probability is state dependent
+
+The second requirement of nuclear-state fission control is
+
+[
+\frac{\partial P_f}{\partial \rho_N}
+\neq 0.
+]
+
+This condition follows naturally from compound-nucleus reaction theory.
+
+The decay probability of an excited compound nucleus is not determined solely by its excitation energy. Quantum numbers such as angular momentum and parity, together with the available transition states at the fission barriers, can influence the probability of decay through the fission channel.
+
+Within the Hauser-Feshbach description, a neutron-induced fission cross section may be written schematically as
+
+[
+\sigma_{n,f}(E)
+===============
+
+\sum_{J,\pi}
+\sigma^{CN}(E,J,\pi)
+G_f(E^\ast,J,\pi),
+]
+
+where
+
+[
+\sigma^{CN}(E,J,\pi)
+]
+
+is the probability of forming the compound nucleus with spin (J) and parity (\pi), and
+
+[
+G_f(E^\ast,J,\pi)
+]
+
+is its probability of subsequently decaying through fission.
+
+Analyses of uranium reactions have found significant dependence of calculated fission probabilities on angular momentum, particularly at relatively low neutron energies and near the opening of additional fission channels. Experimental surrogate-reaction studies also show evidence that changing the population of spin-parity states can modify the observed fission probability.
+
+Thus, even within conventional statistical nuclear reaction theory,
+
+[
+G_f(E^\ast,J_1,\pi_1)
+\neq
+G_f(E^\ast,J_2,\pi_2)
+]
+
+in general.
+
+This fact is essential to the present argument.
+
+It means that the nuclear system possesses internal degrees of freedom whose populations affect the probability of fission.
+
+No coherent quantum interference is required to establish this result.
+
+If an external actuator could selectively modify the occupation probabilities
+
+[
+p(J,\pi),
+]
+
+then the ensemble-averaged fission probability would become
+
+[
+P_f
+===
+
+\sum_{J,\pi}
+p(J,\pi)
+G_f(E^\ast,J,\pi).
+]
+
+Consequently,
+
+[
+\delta p(J,\pi)
+\neq 0
+]
+
+may imply
+
+[
+\delta P_f
+\neq 0.
+]
+
+This is the simplest form of the mechanism proposed in this work.
+
+## 3.4 Fission as quantum dynamical evolution
+
+A still stronger form of nuclear-state control becomes conceivable when fission is described beyond purely statistical compound-nucleus theory.
+
+Modern microscopic calculations treat fission as a dynamical many-body process evolving across a multidimensional nuclear potential-energy landscape. Nuclear density functional theory, time-dependent density functional theory, generator-coordinate methods and nonequilibrium Green-function approaches are increasingly used to describe the evolution from an initially excited configuration toward scission.
+
+Such calculations explicitly show that different initial configurations and dynamical trajectories can lead to different fission observables.
+
+For example, time-dependent microscopic calculations initiated from different regions of the nuclear deformation landscape produce different symmetric and asymmetric fission trajectories, fragment properties and energy-sharing patterns.
+
+Recent microscopic work on (^{236}\mathrm{U}) has also formulated fission in terms of many-body eigenstates that couple configurations across the fission barrier. In this representation, only a subset of the available many-body states contributes strongly to barrier transmission and hence to the fission probability.
+
+This observation is conceptually important.
+
+If the probability of reaching the fission channel depends on which nuclear configurations are populated, then state preparation performed before or during the early stages of the reaction could, in principle, affect the subsequent evolution.
+
+Schematically,
+
+[
+|\Psi_A\rangle
+\longrightarrow
+P_f^{(A)}
+]
+
+and
+
+[
+|\Psi_B\rangle
+\longrightarrow
+P_f^{(B)},
+]
+
+with
+
+[
+P_f^{(A)}
+\neq
+P_f^{(B)}.
+]
+
+The proposed control problem can therefore be recast as the search for pairs or families of nuclear states satisfying
+
+[
+\Delta P_f
+==========
+
+P_f^{(A)}-P_f^{(B)}
+\neq 0
+]
+
+together with a physically accessible external transition
+
+[
+|\Psi_A\rangle
+\overset{u_Q}{\longleftrightarrow}
+|\Psi_B\rangle.
+]
+
+This formulation transforms the original qualitative idea into a concrete nuclear-structure problem.
+
+## 3.5 Population control versus coherent control
+
+At this point it is useful to distinguish two physically different versions of the proposed mechanism.
+
+### Population-based nuclear-state control
+
+In the weaker scenario, the external field changes only the populations of nuclear states,
+
+[
+p_i^{(0)}
+\rightarrow
+p_i^{(Q)}.
+]
+
+The density matrix may remain effectively diagonal,
+
+[
+\rho_N
+======
+
+\sum_i p_i |i\rangle\langle i|.
+]
+
+The effective fission probability is then
+
+[
+P_f^{\mathrm{eff}}
+==================
+
+\sum_i p_i P_f^{(i)}.
+]
+
+Control therefore requires only that
+
+[
+P_f^{(i)}
+\neq
+P_f^{(j)}
+]
+
+and that the external actuator be capable of redistributing population between such states.
+
+This mechanism does not require macroscopic quantum coherence and is consequently the less demanding version of the proposal.
+
+### Coherence-based nuclear-state control
+
+A stronger possibility arises if the external interaction creates a coherent superposition
+
+[
+|\Psi\rangle
+============
+
+\sum_i c_i |i\rangle
+]
+
+or, equivalently, non-zero off-diagonal density-matrix elements
+
+[
+\rho_{ij}\neq0.
+]
+
+The transition amplitude toward the fission channel may then contain interference between different nuclear pathways.
+
+If
+
+[
+A_f
+===
+
+\sum_i c_i A_{i\rightarrow f},
+]
+
+the corresponding probability becomes
+
+[
+P_f
+===
+
+# |A_f|^2
+
+\sum_i |c_iA_{i\rightarrow f}|^2
++
+\sum_{i\neq j}
+c_i c_j^\ast
+A_{i\rightarrow f}
+A_{j\rightarrow f}^\ast .
+]
+
+The second term has no analogue in an incoherent statistical mixture. It introduces the possibility that the **relative phases** of the prepared nuclear amplitudes influence the resulting fission probability.
+
+In principle, one could therefore obtain either constructive or destructive modification of selected fission pathways.
+
+This would constitute genuine coherent control of nuclear fission.
+
+However, this scenario also encounters the strongest physical difficulty: highly excited heavy nuclei possess extremely dense spectra and strong residual nucleon-nucleon interactions, leading to rapid internal equilibration. Studies of intense photon-nucleus interactions explicitly identify competition between externally driven excitation and this intrinsic equilibration.
+
+The coherence-based mechanism should therefore be regarded as the stronger and more speculative limit of the theory.
+
+Importantly, the validity of the overall nuclear-state-control concept does not depend on its realization.
+
+Population control alone is sufficient to define an additional state-dependent fission-control channel.
+
+## 3.6 The missing connection
+
+Existing research therefore provides evidence for the following statements:
+
+[
+\boxed{
+\text{Nuclear states can be externally manipulated}
+}
+]
+
+and
+
+[
+\boxed{
+\text{Fission probability depends on nuclear state}
+}
+]
+
+and, independently,
+
+[
+\boxed{
+\text{Fission can be described as quantum many-body dynamics}
+}
+]
+
+What has not yet been established is the connection
+
+[
+\boxed{
+\text{controlled nuclear-state preparation}
+\rightarrow
+\text{controlled modification of fission probability}
+}
+]
+
+in a form that could subsequently be coupled to a macroscopic multiplying system.
+
+This missing connection defines the central problem addressed in the present work.
+
+Rather than assuming that coherent nuclear-state manipulation can control a reactor, we propose to determine whether there exists any physically realizable regime satisfying
+
+[
+u_Q
+\rightarrow
+\delta\rho_N
+\rightarrow
+\delta P_f
+\neq0.
+]
+
+Only after such a microscopic effect has been established does the reactor-level question become meaningful:
+
+[
+\delta P_f
+\rightarrow
+\delta\Sigma_f
+\rightarrow
+\delta k_{\mathrm{eff}}.
+]
+
+The problem can therefore be naturally divided into two scales.
+
+At the microscopic scale:
+
+[
+\boxed{
+\text{Can an external field controllably modify fission probability?}
+}
+]
+
+At the macroscopic scale:
+
+[
+\boxed{
+\text{Can that modification become large enough to affect neutron multiplication?}
+}
+]
+
+The first question belongs primarily to nuclear quantum dynamics.
+
+The second belongs to reactor physics and control theory.
+
+Their combination constitutes the proposed nuclear-state-control framework.

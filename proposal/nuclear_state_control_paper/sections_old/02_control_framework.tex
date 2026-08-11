@@ -1,0 +1,231 @@
+\section{From Conventional Reactor Control to Nuclear-State Control}
+\label{sec:control_framework}
+
+Conventional reactor control is based on the manipulation of macroscopic variables that influence neutron balance. At the simplest level, the evolution of a multiplying system may be represented through the effective multiplication factor $k_{\mathrm{eff}}$, or equivalently through the reactivity
+\begin{equation}
+\rho
+=
+\frac{k_{\mathrm{eff}}-1}{k_{\mathrm{eff}}}.
+\end{equation}
+
+For a fissile population $N_f$, the neutron-induced fission rate can be written schematically as
+\begin{equation}
+R_f(t)
+=
+N_f
+\int
+\sigma_f(E)\,
+\Phi(E,t)\,
+dE.
+\label{eq:fission_rate_control}
+\end{equation}
+
+In this formulation, the main time-dependent quantity accessible to conventional control is the neutron field. Control rods, soluble absorbers, moderator conditions, coolant density, fuel temperature, and geometry ultimately modify neutron production, absorption, moderation, or leakage.
+
+A simplified conventional control chain may therefore be represented as
+\begin{equation}
+u_C(t)
+\longrightarrow
+\mathcal{A}_C
+\longrightarrow
+\Phi(E,t)
+\longrightarrow
+R_f(t),
+\end{equation}
+where $u_C(t)$ denotes a conventional command and $\mathcal{A}_C$ the associated physical actuator.
+
+The nuclear properties entering $\sigma_f(E)$ are not normally treated as dynamically controllable quantities. For a given isotope and thermodynamic regime, they are effectively constitutive properties encoded in evaluated reaction data.
+
+The present work investigates the consequences of relaxing this assumption.
+
+\subsection{Nuclear state as an explicit variable}
+
+Let the state of the fissile nuclear ensemble be represented by a density operator
+\begin{equation}
+\rho_N.
+\end{equation}
+
+A density operator is preferable to a pure state because macroscopic fissile material will generally contain an ensemble of nuclei occupying multiple states and interacting with a complex environment.
+
+The conventional fission cross section may then be regarded as an ensemble-averaged response associated with an uncontrolled or reference distribution,
+\begin{equation}
+\sigma_f(E)
+=
+\sigma_f(E;\rho_N^{(0)}).
+\end{equation}
+
+If an external interaction changes the state distribution,
+\begin{equation}
+\rho_N^{(0)}
+\rightarrow
+\rho_N(t),
+\end{equation}
+the more general response is
+\begin{equation}
+\sigma_f
+=
+\sigma_f(E;\rho_N).
+\end{equation}
+
+The fission rate becomes
+\begin{equation}
+R_f(t)
+=
+N_f
+\int
+\sigma_f(E;\rho_N(t))
+\Phi(E,t)\,dE.
+\label{eq:fission_rate_state}
+\end{equation}
+
+Equation~\eqref{eq:fission_rate_state} contains two conceptually distinct control channels:
+\begin{equation}
+\Phi(E,t)
+\rightarrow
+R_f(t)
+\end{equation}
+and
+\begin{equation}
+\rho_N(t)
+\rightarrow
+\sigma_f^{\mathrm{eff}}(t)
+\rightarrow
+R_f(t).
+\end{equation}
+
+Conventional control modifies the neutron environment. Nuclear-state control would instead modify the response of the fissile material itself.
+
+\subsection{A second control channel}
+
+We introduce a generic external control variable $u_Q(t)$ representing an interaction capable of modifying the nuclear state:
+\begin{equation}
+u_Q(t)
+\longrightarrow
+\rho_N(t)
+\longrightarrow
+\sigma_f^{\mathrm{eff}}(t)
+\longrightarrow
+R_f(t).
+\label{eq:q_control_chain}
+\end{equation}
+
+Its physical implementation is deliberately left unspecified. It could correspond to a coherent electromagnetic field, an electron-mediated process, an X-ray or gamma-ray pulse sequence, or another externally tunable interaction.
+
+The complete controlled fission system may therefore possess two parallel pathways,
+\begin{align}
+u_C(t) &\longrightarrow \Phi(E,t),\\
+u_Q(t) &\longrightarrow \rho_N(t),
+\end{align}
+which both influence $R_f(t)$.
+
+\subsection{State-dependent fission probability}
+
+Consider a set of nuclear states $\{|i\rangle\}$, each characterized by a state-dependent fission response $\sigma_f^{(i)}(E)$. For an incoherent mixture with populations $p_i$,
+\begin{equation}
+\sigma_f^{\mathrm{eff}}(E)
+=
+\sum_i
+p_i
+\sigma_f^{(i)}(E).
+\label{eq:incoherent_sigma}
+\end{equation}
+
+Thus, external redistribution of state populations,
+\begin{equation}
+p_i^{(0)}
+\rightarrow
+p_i(t),
+\end{equation}
+is sufficient to modify the effective fission response if at least two states have unequal fission cross sections.
+
+A more general quantum description contains off-diagonal density-matrix elements $\rho_{ij}$ with $i\neq j$. Formally, the fission probability can be written as
+\begin{equation}
+P_f(E)
+=
+\mathrm{Tr}
+\left[
+\rho_N\,
+\hat{\Pi}_f(E)
+\right],
+\label{eq:fission_operator}
+\end{equation}
+where $\hat{\Pi}_f(E)$ denotes an effective operator associated with evolution into the fission channel.
+
+Equation~\eqref{eq:fission_operator} expresses the central idea compactly: if an external control changes $\rho_N$ and the fission operator is state sensitive, then the fission probability is externally modifiable.
+
+\subsection{From microscopic control to macroscopic reactivity}
+
+Let
+\begin{equation}
+\delta\sigma_f
+=
+\sigma_f^{\mathrm{controlled}}
+-
+\sigma_f^{(0)}
+\end{equation}
+be the state-induced modification of the microscopic fission response. At the macroscopic level,
+\begin{equation}
+\delta\Sigma_f
+=
+N_f\,\delta\sigma_f.
+\end{equation}
+
+A nonzero $\delta\Sigma_f$ perturbs neutron production and therefore, in principle, the multiplication factor:
+\begin{equation}
+\delta\rho_N
+\rightarrow
+\delta\sigma_f
+\rightarrow
+\delta\Sigma_f
+\rightarrow
+\delta k_{\mathrm{eff}}
+\rightarrow
+\delta\rho.
+\end{equation}
+
+For bookkeeping, we introduce a hypothetical effective reactivity contribution $\rho_Q$ and write, at first order,
+\begin{equation}
+\rho_{\mathrm{tot}}
+=
+\rho_{\mathrm{conv}}
++
+\rho_Q.
+\label{eq:rho_decomposition}
+\end{equation}
+
+Equation~\eqref{eq:rho_decomposition} is not assumed to hold as an exact additive decomposition in arbitrary nonlinear regimes; it is a perturbative definition that permits direct comparison with conventional reactivity effects.
+
+\subsection{Necessary physical conditions}
+
+For nuclear-state control to constitute a meaningful additional degree of freedom, several conditions must hold:
+\begin{enumerate}
+\item an external interaction must reproducibly modify the nuclear-state distribution,
+\begin{equation}
+u_Q(t)\rightarrow\delta\rho_N(t);
+\end{equation}
+\item the relevant states must have distinguishable fission responses,
+\begin{equation}
+\frac{\partial P_f}{\partial\rho_N}\neq0;
+\end{equation}
+\item the state modification must survive long enough to affect the relevant fission interaction;
+\item a sufficiently large fraction of nuclei must be addressed;
+\item the ensemble-averaged change must survive competing relaxation, statistical fluctuations, and ordinary reactor feedback.
+\end{enumerate}
+
+The proposed mechanism can therefore be summarized by
+\begin{equation}
+\boxed{
+u_Q
+\rightarrow
+\delta\rho_N
+\rightarrow
+\delta P_f
+\rightarrow
+\delta\Sigma_f
+\rightarrow
+\delta k_{\mathrm{eff}}
+}.
+\label{eq:necessary_chain}
+\end{equation}
+
+Every arrow in Eq.~\eqref{eq:necessary_chain} is a separate physical problem. The following sections examine which links are already supported by existing nuclear physics and which remain open.

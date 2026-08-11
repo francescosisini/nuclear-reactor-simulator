@@ -1,0 +1,331 @@
+\section{Candidate Physical System and Experimental Test Strategy}
+\label{sec:candidate_system}
+
+The purpose of this section is to translate the general framework introduced above into a physically testable problem. Among known fissile systems, the low-lying isomeric state of $^{235}\mathrm{U}$, denoted $^{235m}\mathrm{U}$, is a particularly useful candidate because the two central ingredients of nuclear-state fission control are already partially established: the isomer can be produced and studied experimentally, and its neutron-induced fission response differs measurably from that of the nuclear ground state.
+
+Importantly, the use of $^{235m}\mathrm{U}$ in connection with fission control is not itself a new suggestion. Previous work has explicitly noted that the isomer may be exploited to control nuclear fission because its thermal-neutron fission cross section differs substantially from that of ground-state $^{235}\mathrm{U}$ \cite{deer1988,liu2022}. The purpose of the present framework is therefore more specific: to treat the externally controllable nuclear-state population as a dynamical control variable, connect it explicitly to an effective fission cross section, and then propagate that microscopic modification into macroscopic quantities such as fission rate, neutron multiplication, and reactor reactivity.
+
+\subsection{$^{235m}\mathrm{U}$ as a candidate system}
+
+The first excited nuclear state of $^{235}\mathrm{U}$ lies only
+\begin{equation}
+E_m = 76.737 \pm 0.018\ \mathrm{eV}
+\end{equation}
+above the ground state \cite{ponce2018}. This exceptionally low excitation energy is unusual for a nuclear transition. The state has a half-life of approximately 26 min and decays predominantly through internal conversion.
+
+For the present proposal, however, the most important property is not its low excitation energy but its different neutron-induced fission response.
+
+D'Eer \textit{et al.} measured the fission cross section of $^{235m}\mathrm{U}$ relative to that of ground-state $^{235}\mathrm{U}$ and obtained
+\begin{equation}
+\frac{\sigma_f^m}{\sigma_f^g}=1.61\pm0.44
+\end{equation}
+for cold neutrons and
+\begin{equation}
+\frac{\sigma_f^m}{\sigma_f^g}=2.47\pm0.45
+\end{equation}
+for thermal neutrons \cite{deer1988}.
+
+Thus, in this system,
+\begin{equation}
+\boxed{\sigma_f^m \neq \sigma_f^g}
+\end{equation}
+is an experimentally established fact.
+
+This result is central because it demonstrates that the neutron-induced fission response of a fissile isotope is not determined by isotopic composition alone. It can depend strongly on the internal nuclear state.
+
+The microscopic link
+\begin{equation}
+\rho_N \longrightarrow \sigma_f
+\end{equation}
+required by the framework developed in the previous sections therefore already exists experimentally for at least one relevant fissile system.
+
+\subsection{Minimal two-population description}
+
+Let $p_m(t)$ be the fraction of $^{235}\mathrm{U}$ nuclei occupying the isomeric state and
+\begin{equation}
+p_g(t)=1-p_m(t)
+\end{equation}
+the fraction occupying the ground state.
+
+For a neutron of energy $E$, the effective microscopic fission cross section of the ensemble is
+\begin{equation}
+\sigma_f^{\mathrm{eff}}(E,t)
+=
+[1-p_m(t)]\,\sigma_f^g(E)
++
+p_m(t)\,\sigma_f^m(E).
+\end{equation}
+
+Equivalently,
+\begin{equation}
+\sigma_f^{\mathrm{eff}}(E,t)
+=
+\sigma_f^g(E)
++
+p_m(t)
+\left[
+\sigma_f^m(E)-\sigma_f^g(E)
+\right].
+\end{equation}
+
+Introducing
+\begin{equation}
+r(E)=\frac{\sigma_f^m(E)}{\sigma_f^g(E)},
+\end{equation}
+the relative change with respect to a purely ground-state ensemble becomes
+\begin{equation}
+\frac{\Delta\sigma_f(E,t)}{\sigma_f^g(E)}
+=
+p_m(t)[r(E)-1].
+\end{equation}
+
+Using the measured thermal-neutron value $r\simeq2.47$,
+\begin{equation}
+\frac{\Delta\sigma_f}{\sigma_f^g}\simeq1.47\,p_m.
+\end{equation}
+
+This equation exposes the control problem directly. Once state-dependent fission cross sections are known, the only new dynamical quantity required at this level is the controllable isomeric fraction $p_m(t)$.
+
+A state-control actuator would therefore act according to
+\begin{equation}
+u_Q(t)\longrightarrow p_m(t)\longrightarrow\sigma_f^{\mathrm{eff}}(t).
+\end{equation}
+
+The central microscopic feasibility question becomes whether $p_m(t)$ can be externally and reproducibly controlled, rather than whether the two states possess different fission probabilities, which is already experimentally established.
+
+\subsection{External population of the isomer}
+
+Producing a useful controlled population of $^{235m}\mathrm{U}$ remains the principal unresolved step.
+
+Several nucleus-electron coupling mechanisms have been investigated for this unusually low-energy transition. Nuclear excitation by electronic transition (NEET) has received particular attention. Experimental claims have historically been inconsistent, and a dedicated 2016 search using a laser-generated uranium plasma observed no statistically significant $^{235m}\mathrm{U}$ production attributable to NEET. That work established an upper bound on the excitation rate under its experimental conditions \cite{chodash2016}.
+
+A different route was investigated theoretically by Liu and Wang in 2022 using inelastic scattering of low-energy electrons. Their distorted-wave calculations predict excitation cross sections of order
+\begin{equation}
+10^{-38}-10^{-37}\ \mathrm{cm^2}
+\end{equation}
+for electron energies near the excitation threshold, several orders of magnitude larger than earlier plane-wave estimates \cite{liu2022}.
+
+The same study noted that indirect population through higher nuclear levels may be more efficient than direct excitation of the $76.7$-eV transition. In particular, higher-lying levels coupled to the ground state by lower-multipolarity transitions provide possible intermediate pathways for population pumping \cite{liu2022}.
+
+These results do not establish a practical actuator. They establish instead a well-defined open problem: whether a controllable excitation mechanism can produce a sufficiently large and sufficiently rapid modulation of $p_m$.
+
+The proposed control framework does not require a particular excitation technology. The actuator may be electromagnetic, electron-mediated, plasma-mediated, or based on another externally tunable coupling mechanism. What matters is that it produces a reproducible mapping
+\begin{equation}
+u_Q(t)\rightarrow p_m(t).
+\end{equation}
+
+\subsection{Distinguishing excitation from control}
+
+A crucial distinction must be maintained between \emph{producing} an isomer and \emph{controlling} the fission response through the isomeric population.
+
+The existence of a process
+\begin{equation}
+^{235}\mathrm{U}_g\rightarrow{}^{235m}\mathrm{U}
+\end{equation}
+is not by itself sufficient to demonstrate nuclear-state fission control.
+
+A control mechanism requires that an externally adjustable parameter $u_Q$ produce a predictable variation
+\begin{equation}
+p_m=p_m(u_Q),
+\end{equation}
+and that this variation subsequently produce a corresponding change in neutron-induced fission while the neutron field is otherwise held fixed.
+
+The relevant chain is therefore
+\begin{equation}
+\boxed{
+u_Q
+\rightarrow
+p_m
+\rightarrow
+\sigma_f^{\mathrm{eff}}
+\rightarrow
+R_f
+}
+\end{equation}
+rather than simply
+\begin{equation}
+u_Q\rightarrow\text{nuclear excitation}.
+\end{equation}
+
+This distinction is what connects nuclear spectroscopy and nuclear excitation physics to control theory.
+
+\subsection{Minimal falsification experiment}
+
+The proposed mechanism can be tested without constructing a multiplying reactor system.
+
+Consider two otherwise equivalent fissile ensembles exposed to the same neutron spectrum,
+\begin{equation}
+\Phi_1(E)=\Phi_2(E).
+\end{equation}
+
+Let the nuclear-state populations differ,
+\begin{equation}
+p_m^{(1)}\neq p_m^{(2)}.
+\end{equation}
+
+The corresponding fission-rate difference is
+\begin{equation}
+\Delta R_f
+=
+N_f
+\int
+\Phi(E)
+\left[
+p_m^{(2)}-p_m^{(1)}
+\right]
+\left[
+\sigma_f^m(E)-\sigma_f^g(E)
+\right]
+\,dE.
+\end{equation}
+
+Since the state-dependent cross-section difference is already known to be non-zero for cold and thermal neutrons, the decisive experimental step is to generate the difference
+\begin{equation}
+\Delta p_m=p_m^{(2)}-p_m^{(1)}
+\end{equation}
+through an externally adjustable actuator.
+
+The hypothesis predicts
+\begin{equation}
+\boxed{
+\left.
+\frac{\partial R_f}{\partial u_Q}
+\right|_{\Phi}
+\neq0
+}
+\end{equation}
+provided that
+\begin{equation}
+\frac{\partial p_m}{\partial u_Q}\neq0
+\end{equation}
+and
+\begin{equation}
+\sigma_f^m-\sigma_f^g\neq0.
+\end{equation}
+
+This formulation also makes the experiment falsifiable. If the actuator produces a verified change in $p_m$ but no corresponding change in the neutron-induced fission response beyond experimental uncertainty, the proposed coupling model is incomplete or incorrect for that regime.
+
+Conversely, observation of a reproducible correlation
+\begin{equation}
+u_Q\rightarrow p_m\rightarrow R_f
+\end{equation}
+with the neutron spectrum held fixed would constitute direct evidence of externally actuated nuclear-state control of fission.
+
+\subsection{From microscopic control to macroscopic relevance}
+
+A positive microscopic result would not, by itself, imply practical reactor control.
+
+Let $f_Q$ denote the fraction of fissile nuclei whose state population can effectively be modified by the actuator. To first order, the macroscopic change in the fission response scales as
+\begin{equation}
+\frac{\delta\Sigma_f}{\Sigma_f}
+\sim
+f_Q\frac{\delta\sigma_f}{\sigma_f}.
+\end{equation}
+
+For the two-state $^{235}\mathrm{U}$ model, $f_Q$ may be absorbed into an effective ensemble-averaged isomeric fraction, but it is useful to retain the distinction when considering spatially nonuniform or incomplete actuation.
+
+Macroscopic relevance therefore depends not only on the intrinsic difference
+\begin{equation}
+\Delta\sigma_f=\sigma_f^m-\sigma_f^g,
+\end{equation}
+but also on the achievable controlled population, the excitation and relaxation timescales, and the energetic cost of maintaining the desired state distribution.
+
+A minimal feasibility parameter set is
+\begin{equation}
+\boxed{
+\left\{
+p_m^{\max},
+\frac{dp_m}{dt},
+\tau_m,
+\Delta\sigma_f(E),
+E_Q,
+f_Q
+\right\}.
+}
+\end{equation}
+
+Only after these quantities are constrained experimentally does it become meaningful to propagate the effect into $\delta k_{\mathrm{eff}}$ and an effective reactor reactivity contribution $\rho_Q$.
+
+\subsection{Scope of the present contribution}
+
+The $^{235m}\mathrm{U}$ literature requires a careful statement of novelty.
+
+Previous studies have already established that the isomer has a different neutron-induced fission cross section, and the possibility of exploiting this fact for fission control has been explicitly mentioned \cite{deer1988,liu2022}. The present work therefore does \emph{not} claim the first proposal to use $^{235m}\mathrm{U}$ to influence fission.
+
+The distinct objective developed here is to formulate nuclear-state population as an explicit dynamical control variable and to embed it in a general multiscale chain,
+\begin{equation}
+u_Q(t)
+\rightarrow
+\rho_N(t)
+\rightarrow
+\sigma_f^{\mathrm{eff}}(E,t)
+\rightarrow
+R_f(t)
+\rightarrow
+k_{\mathrm{eff}}(t)
+\rightarrow
+\rho_Q(t).
+\end{equation}
+
+Within this framework, an isomer is not merely a nuclear state with unusual reaction properties. Its population becomes a candidate \emph{state variable of the controlled fission system}.
+
+This formulation separates three questions that are often conflated:
+\begin{enumerate}
+\item \textbf{State dependence:} do different nuclear states have different fission responses?
+\item \textbf{Actuation:} can their populations be externally and dynamically controlled?
+\item \textbf{System coupling:} can the resulting microscopic modification influence macroscopic neutron multiplication?
+\end{enumerate}
+
+For $^{235m}\mathrm{U}$, the first question already has a positive experimental answer. The second remains an active nuclear-physics problem. The third is the reactor-physics and control-theory problem formulated in this work.
+
+\subsection{Beyond $^{235m}\mathrm{U}$}
+
+The framework is not restricted to a single isotope.
+
+A suitable candidate system should satisfy as many as possible of the following conditions:
+\begin{itemize}
+\item at least two nuclear states or configurations with significantly different fission probabilities or fission cross sections;
+\item an externally accessible transition or population-transfer pathway between those states;
+\item a controlled-state lifetime sufficiently long compared with the actuation timescale;
+\item an actuation mechanism capable of addressing a non-negligible fraction of the fissile ensemble;
+\item a state-dependent response that survives ensemble averaging;
+\item an energy cost compatible with producing a measurable net change in the fission dynamics.
+\end{itemize}
+
+Long-lived spectroscopic isomers, shape isomers, and selected excited configurations of actinides therefore constitute natural classes of systems for future investigation.
+
+The search for candidate nuclei can be formulated as an optimization problem over two properties:
+\begin{equation}
+\boxed{
+\text{controllability of the nuclear state}
+\times
+\text{sensitivity of fission to that state}.
+}
+\end{equation}
+
+A system with a very large state-dependent fission effect but negligible controllability is unsuitable. Likewise, a readily controllable state is of little value if its fission response is indistinguishable from that of the uncontrolled ensemble.
+
+The most promising systems are those in which both factors are simultaneously non-negligible.
+
+\subsection{Experimental decision tree}
+
+The proposed research program can therefore proceed through a sequence of increasingly stringent tests.
+
+First, demonstrate or identify reproducible external control of a fission-distinct nuclear-state population,
+\begin{equation}
+u_Q\rightarrow\rho_N.
+\end{equation}
+
+Second, verify under a fixed neutron spectrum that the controlled state produces the predicted modification of neutron-induced fission,
+\begin{equation}
+\rho_N\rightarrow\sigma_f^{\mathrm{eff}}\rightarrow R_f.
+\end{equation}
+
+Third, determine whether the achievable controlled fraction and response magnitude are sufficient to produce a measurable perturbation of neutron multiplication,
+\begin{equation}
+R_f\rightarrow\delta k_{\mathrm{eff}}.
+\end{equation}
+
+Only the third stage requires coupling the microscopic nuclear-state dynamics to reactor kinetics.
+
+This hierarchy deliberately separates the fundamental physics question from the engineering one. A negative result at the first or second stage would constrain or falsify the proposed control mechanism without requiring reactor-scale experiments. A positive result would provide the quantitative parameters needed to determine whether nuclear-state control can ever become relevant at macroscopic scale.

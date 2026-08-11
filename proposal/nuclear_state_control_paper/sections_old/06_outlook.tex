@@ -1,0 +1,238 @@
+\section{Outlook: Quantum-State Engineering of Fission Outcomes}
+\label{sec:outlook}
+
+The framework developed in the previous sections has focused primarily on the possibility of controlling the probability of fission and, consequently, the macroscopic neutron multiplication of a fissile system. The same conceptual framework suggests a broader question.
+
+A fission event is not characterized by a single final state. For a given fissioning nucleus, the process produces a distribution of fragment masses, charges, excitation energies, neutron multiplicities, and prompt electromagnetic emission. The relevant nuclear response is therefore more general than a single fission cross section.
+
+We introduce the schematic fission-response vector
+\begin{equation}
+\mathcal{F}
+=
+\left\{
+\sigma_f,\,
+Y(A,Z),\,
+\nu_n,\,
+Y_\gamma,\,
+E_{\mathrm{kin}},\,
+\ldots
+\right\},
+\label{eq:fission_response_vector}
+\end{equation}
+where $Y(A,Z)$ denotes the yield of a fragment with mass number $A$ and atomic number $Z$, $\nu_n$ denotes neutron multiplicity, and the remaining quantities represent other measurable fission observables.
+
+The more general hypothesis is then
+\begin{equation}
+\boxed{
+\mathcal{F}
+=
+\mathcal{F}(E,\rho_N)
+}
+\label{eq:fission_response_state}
+\end{equation}
+rather than only
+\begin{equation}
+\sigma_f
+=
+\sigma_f(E,\rho_N).
+\end{equation}
+
+If Eq.~\eqref{eq:fission_response_state} can be exploited dynamically, nuclear-state control would extend from \emph{fission-rate engineering} to \emph{fission-outcome engineering}.
+
+\subsection{State dependence of fission-fragment distributions}
+
+Fission-fragment yields are strongly structured rather than statistically featureless. Shell effects, deformation, collective dynamics, excitation energy, angular momentum, and dissipative evolution influence the probability of reaching different scission configurations.
+
+Microscopic and phenomenological calculations reproduce the strong role of shell structure in determining asymmetric fragment distributions \cite{ScampsSimenel2018,Sadhukhan2022}. In actinides, deformed shell effects in the nascent fragments can favor specific asymmetric mass and charge splits \cite{ScampsSimenel2018}.
+
+Experimental results also demonstrate that fission yields are not invariant with respect to the initial conditions of the fissioning system. Measurements of $^{240}$Pu show a systematic evolution of isotopic fission yields with excitation energy, including damping of shell-driven structures and changes in the neutron content of the fragments \cite{Ramos2026}.
+
+These observations establish the general principle
+\begin{equation}
+\text{initial nuclear conditions}
+\longrightarrow
+Y(A,Z).
+\end{equation}
+
+They do not establish that an external actuator can deliberately select a desired yield distribution. They do, however, show that the fragment distribution contains dynamical information about the state and excitation of the fissioning system.
+
+The natural extension of the present framework is therefore
+\begin{equation}
+u_Q
+\longrightarrow
+\rho_N
+\longrightarrow
+Y(A,Z\,|\,\rho_N).
+\label{eq:yield_control_chain}
+\end{equation}
+
+\subsection{From state-dependent fissility to state-engineered fissility}
+
+The $^{235m}$U example considered in Sec.~\ref{sec:candidate_system} demonstrates that the neutron-induced fission response of a nucleus can depend strongly on its internal state.
+
+This raises a broader possibility. Instead of classifying a nuclide exclusively through its ground-state fission properties, one may consider a state-dependent criterion,
+\begin{equation}
+\text{fission response}
+=
+\text{fission response}(\text{nuclide},\rho_N,E).
+\end{equation}
+
+A material that is poorly fissile under a given neutron spectrum in its reference state could, in principle, possess an excited or metastable configuration with a substantially different fission response.
+
+Schematically, one may search for systems satisfying
+\begin{equation}
+\sigma_f(E;\rho_N^\ast)
+\gg
+\sigma_f(E;\rho_N^{(0)}),
+\label{eq:state_engineered_fissility}
+\end{equation}
+together with an experimentally accessible pathway
+\begin{equation}
+\rho_N^{(0)}
+\overset{u_Q}{\longrightarrow}
+\rho_N^\ast.
+\end{equation}
+
+Equation~\eqref{eq:state_engineered_fissility} suggests the concept of \emph{state-engineered fissility}: the possibility that the practical usefulness of a nuclear material as a fission medium may depend not only on isotopic composition but also on the externally prepared nuclear-state distribution.
+
+This possibility remains speculative. In particular, an externally driven excitation is useful as an energy-production control mechanism only if the energetic cost of preparing the relevant state does not simply replace the energy otherwise supplied by the nuclear reaction.
+
+A necessary energetic condition for technological relevance is therefore schematically
+\begin{equation}
+E_Q
+\ll
+E_{\mathrm{fission}},
+\end{equation}
+where $E_Q$ represents the net energy cost required to prepare or maintain the controlled nuclear state per affected fission event.
+
+The external actuator should function primarily as a control or gating mechanism rather than as the dominant energy source of the reaction.
+
+\subsection{Can fission products be steered toward stability?}
+
+A second and potentially more consequential extension concerns the radioactive character of the fission products.
+
+For conventional actinide fission, the primary fragments are generally neutron rich. They typically undergo prompt neutron emission followed by sequences of beta decays before reaching stable or long-lived nuclei. Therefore, requiring a fission event to produce two immediately stable fragments is a much stronger condition than merely modifying the fragment-yield distribution.
+
+Conservation of nucleon number, charge, energy, and angular momentum strongly constrains the accessible final states. Nuclear-state control cannot remove these constraints.
+
+The scientifically meaningful question is therefore not initially whether every fission can produce stable fragments, but rather whether nuclear-state preparation can bias the fission-yield distribution toward products closer to stability or away from long-lived radionuclides.
+
+This problem can be expressed quantitatively.
+
+Let
+\begin{equation}
+Y(A,Z\,|\,\rho_N)
+\end{equation}
+denote the independent yield distribution produced from an initial nuclear state $\rho_N$.
+
+Define a weight
+\begin{equation}
+w(A,Z)
+\end{equation}
+that represents an undesired property of each fragment, such as long half-life, long-term radiotoxicity, delayed-neutron contribution, decay heat, or another application-specific quantity.
+
+An objective functional may then be introduced:
+\begin{equation}
+\mathcal{J}[\rho_N]
+=
+\sum_{A,Z}
+w(A,Z)
+Y(A,Z\,|\,\rho_N).
+\label{eq:waste_functional}
+\end{equation}
+
+The fission-outcome control problem becomes
+\begin{equation}
+\boxed{
+\rho_N^{\mathrm{opt}}
+=
+\operatorname*{arg\,min}_{\rho_N}
+\mathcal{J}[\rho_N]
+}
+\label{eq:optimal_state}
+\end{equation}
+subject to physical accessibility of $\rho_N$, conservation laws, fission probability, and the energetic cost of the actuator.
+
+Equation~\eqref{eq:optimal_state} converts the qualitative idea of ``cleaner fission'' into a falsifiable optimization problem.
+
+For example, $w(A,Z)$ may be chosen to penalize selected long-lived fission products. Alternatively, one could minimize a time-dependent activity or radiotoxicity measure,
+\begin{equation}
+\mathcal{J}(t;\rho_N)
+=
+\sum_{A,Z}
+w(A,Z,t)
+Y(A,Z\,|\,\rho_N).
+\end{equation}
+
+The central microscopic quantity required to assess this possibility is then
+\begin{equation}
+\frac{\partial Y(A,Z\,|\,\rho_N)}
+{\partial u_Q},
+\end{equation}
+or, more fundamentally,
+\begin{equation}
+\frac{\delta Y(A,Z)}
+{\delta\rho_N}.
+\end{equation}
+
+\subsection{Two complementary control objectives}
+
+The nuclear-state engineering framework therefore naturally separates into two distinct control objectives.
+
+The first is \emph{reactivity control}:
+\begin{equation}
+u_Q
+\rightarrow
+\rho_N
+\rightarrow
+\sigma_f^{\mathrm{eff}}
+\rightarrow
+R_f
+\rightarrow
+k_{\mathrm{eff}}.
+\label{eq:reactivity_objective}
+\end{equation}
+
+The second is \emph{fission-outcome control}:
+\begin{equation}
+u_Q
+\rightarrow
+\rho_N
+\rightarrow
+Y(A,Z),
+\ \nu_n,
+\ Y_\gamma,
+\ldots
+\label{eq:outcome_objective}
+\end{equation}
+
+The two objectives need not require the same nuclear states or the same actuator.
+
+A state that produces a large change in $\sigma_f$ may leave the fragment distribution almost unchanged. Conversely, a state that produces only a modest change in total fission probability could still significantly alter the relative probability of competing fission pathways.
+
+This distinction implies that nuclear-state engineering could remain useful even if the induced reactivity perturbation is too small to replace conventional reactor-control systems. A small but reproducible shift in selected fragment yields could have scientific or technological value independently of reactor-power control.
+
+\subsection{A broader research program}
+
+The framework suggests a hierarchy of increasingly ambitious questions:
+
+\begin{enumerate}
+\item Can an external actuator reproducibly control the population of a nuclear state with a different neutron-induced fission response?
+\item Can such control produce a measurable modification of the total fission probability under a fixed neutron field?
+\item Can nuclear-state preparation alter fragment yields or other fission observables?
+\item Can an initial state be identified that suppresses selected undesirable fission products?
+\item Can useful state-dependent fission properties be found in nuclides not normally regarded as practical fissile fuels under the same neutron conditions?
+\end{enumerate}
+
+The first two questions define the core proposal developed in this paper. The remaining questions constitute a broader research program that may be termed
+\begin{equation}
+\boxed{
+\textit{quantum-state engineering of nuclear fission}.
+}
+\end{equation}
+
+The term is used here in a precise sense: the deliberate preparation of nuclear-state distributions with the objective of modifying one or more measurable properties of a subsequent fission process.
+
+No assumption is made that arbitrary fission products can be selected, that stable fragments can necessarily be produced directly, or that such control can be achieved at technologically relevant scales. Those are quantitative questions to be determined by nuclear structure, reaction dynamics, and experiment.
+
+The conceptual extension is that the initial nuclear state is treated as a potentially engineerable input to the fission process rather than solely as an inaccessible microscopic variable encoded in averaged reaction data.

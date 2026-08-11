@@ -1,0 +1,110 @@
+\documentclass[
+  aps,
+  prc,
+  reprint,
+  superscriptaddress,
+  nofootinbib
+]{revtex4-2}
+
+% ----------------------------------------------------------------
+% Packages
+% ----------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{siunitx}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=blue,
+  citecolor=blue,
+  urlcolor=blue,
+  pdftitle={Nuclear-State Control as a Dynamical Degree of Freedom in Fission Systems},
+  pdfauthor={Author Name}
+}
+
+% ----------------------------------------------------------------
+% Convenience macros
+% ----------------------------------------------------------------
+\newcommand{\keff}{k_{\mathrm{eff}}}
+\newcommand{\sigf}{\sigma_f}
+\newcommand{\Sigf}{\Sigma_f}
+\newcommand{\rhoN}{\rho_N}
+\newcommand{\rhoQ}{\rho_Q}
+\newcommand{\Rf}{R_f}
+
+% ----------------------------------------------------------------
+% Document
+% ----------------------------------------------------------------
+\begin{document}
+
+\title{Quantum-State Engineering of Fission Pathways in Uranium Fuel}
+
+\author{Aidar S. Nurqalin}
+\affiliation{JV Inkai LLP, Turkistan Region, Republic of Kazakhstan}
+
+\author{Élise Morveaux}
+\affiliation{Orano, Philippe Coste Conversion Plant, Tricastin, France}
+
+\author{Tomas van der Meerveld}
+\affiliation{Urenco Nederland B.V., Almelo, The Netherlands}
+
+\author{Karin E. Lindqvaller}
+\affiliation{Westinghouse Electric Sweden AB, Västerås, Sweden}
+
+\author{Lukas M. Kellenwald}
+\affiliation{Paul Scherrer Institut, 5232 Villigen PSI, Switzerland}
+
+\date{\today}
+
+\begin{abstract}
+Nuclear reactor physics conventionally treats microscopic quantum dynamics through nuclear reaction data while controlling fission primarily through macroscopic variables such as neutron population, absorption, moderation, geometry, and temperature. We investigate a complementary possibility: whether the internal nuclear state of fissile matter can be promoted to an explicitly controlled dynamical variable. In this framework, an external actuator modifies a nuclear-state distribution, the state-dependent fission response changes, and the resulting perturbation propagates to the macroscopic fission rate and neutron multiplication. We formulate the concept using a density-matrix description, derive a minimal two-state control model, and connect it to an effective fission cross section and reactor reactivity. The low-lying isomer of $^{235}$U provides a concrete candidate because its neutron-induced fission cross section is experimentally known to differ from that of the ground state. Existing literature has already suggested exploiting this difference for fission control; the present contribution instead focuses on formulating nuclear-state population as a dynamical control variable and embedding it in a multiscale chain from microscopic state preparation to macroscopic reactor kinetics. The framework yields a falsifiable experimental criterion and separates three questions: state dependence, external actuation, and system-level coupling.
+\end{abstract}
+
+\keywords{nuclear fission, nuclear quantum control, reactor kinetics, nuclear isomers, $^{235m}$U, coherent control}
+
+\maketitle
+
+\input{sections/01_introduction}
+\input{sections/02_control_framework}
+\input{sections/03_physical_basis}
+\input{sections/04_minimal_model}
+\input{sections/05_candidate_system}
+\input{sections/06_outlook}
+\input{sections/06_conclusions}
+
+\begin{acknowledgments}
+The authors thank F. Sisini for a private communication that
+motivated the initial formulation of the problem. The final form
+of the manuscript emerged from an independent exploration of the
+consequences of that idea.
+\end{acknowledgments}
+
+\bibliography{references}
+
+\section*{Fictional Work Notice}
+
+This document is a fictional scientific article created exclusively
+for narrative and artistic purposes.
+
+The authors named in this manuscript are fictional. Any resemblance
+to actual persons, living or deceased, is entirely coincidental and
+unintentional.
+
+Real institutions, facilities, scientific publications, and technical
+terminology may be referenced in order to provide a realistic setting.
+Their appearance in this fictional work does not imply participation,
+endorsement, authorship, or approval by those institutions or by their
+personnel.
+
+The scientific scenario described in this manuscript forms part of a
+work of fiction and should not be interpreted as reporting actual
+experiments, results, technologies, or research programs.
+
+\end{document}

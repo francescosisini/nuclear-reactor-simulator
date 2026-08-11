@@ -1,0 +1,1007 @@
+# 4. Minimal Theoretical Model
+
+The purpose of this section is to construct the simplest dynamical model capable of representing nuclear-state control of fission.
+
+The model is intentionally abstract. It does not assume the existence of a specific experimentally accessible pair of states in a particular fissile isotope. Instead, it identifies the minimum physical ingredients required for the proposed mechanism to operate and provides a quantitative framework that can later be instantiated using realistic nuclear data.
+
+The minimal system contains two nuclear configurations,
+
+[
+|A\rangle
+\qquad\text{and}\qquad
+|B\rangle ,
+]
+
+which differ in their probability of undergoing fission.
+
+We assume
+
+[
+\Gamma_f^{(A)}
+\neq
+\Gamma_f^{(B)},
+]
+
+where (\Gamma_f^{(i)}) denotes the fission decay rate associated with state (i).
+
+An external actuator couples the two states,
+
+[
+|A\rangle
+\overset{u_Q(t)}{\longleftrightarrow}
+|B\rangle .
+]
+
+The central question is whether controlled redistribution of nuclear population between these states produces a measurable modification of the total fission probability.
+
+---
+
+## 4.1 Population-based two-state model
+
+We first consider the simplest case in which quantum coherence between the two states is neglected.
+
+Let
+
+[
+p_A(t)
+]
+
+and
+
+[
+p_B(t)
+]
+
+denote the populations of states (A) and (B).
+
+The external actuator produces transitions with rates
+
+[
+W_{A\rightarrow B}(t)
+]
+
+and
+
+[
+W_{B\rightarrow A}(t).
+]
+
+Both states may decay through fission and through competing non-fission channels.
+
+We therefore introduce
+
+[
+\Gamma_f^{(A)},\qquad
+\Gamma_f^{(B)}
+]
+
+for fission and
+
+[
+\Gamma_d^{(A)},\qquad
+\Gamma_d^{(B)}
+]
+
+for all competing decay processes.
+
+The population dynamics is then
+
+[
+\frac{dp_A}{dt}
+===============
+
+*
+
+W_{A\rightarrow B}p_A
++
+W_{B\rightarrow A}p_B
+---------------------
+
+\Gamma_A p_A ,
+]
+
+[
+\frac{dp_B}{dt}
+===============
+
+## W_{A\rightarrow B}p_A
+
+## W_{B\rightarrow A}p_B
+
+\Gamma_B p_B ,
+]
+
+where
+
+[
+\Gamma_A
+========
+
+\Gamma_f^{(A)}
++
+\Gamma_d^{(A)}
+]
+
+and
+
+[
+\Gamma_B
+========
+
+\Gamma_f^{(B)}
++
+\Gamma_d^{(B)}.
+]
+
+The instantaneous fission rate for a single initially prepared nucleus is
+
+[
+r_f(t)
+======
+
+\Gamma_f^{(A)}p_A(t)
++
+\Gamma_f^{(B)}p_B(t).
+]
+
+The integrated probability that the system eventually undergoes fission is
+
+[
+P_f
+===
+
+\int_0^\infty
+r_f(t),dt.
+]
+
+Without external control,
+
+[
+W_{A\rightarrow B}
+==================
+
+# W_{B\rightarrow A}
+
+0,
+]
+
+and for an initially populated state (A),
+
+[
+p_A(0)=1,
+\qquad
+p_B(0)=0,
+]
+
+the fission probability is simply
+
+[
+P_f^{(0)}
+=========
+
+\frac{\Gamma_f^{(A)}}{\Gamma_A}.
+]
+
+The external actuator becomes physically relevant if it transfers population toward a state having a different fission branching ratio.
+
+For example, if
+
+[
+\frac{\Gamma_f^{(B)}}{\Gamma_B}
+
+>
+
+\frac{\Gamma_f^{(A)}}{\Gamma_A},
+]
+
+then population transfer
+
+[
+A\rightarrow B
+]
+
+increases the integrated fission probability.
+
+Conversely, if
+
+[
+\frac{\Gamma_f^{(B)}}{\Gamma_B}
+<
+\frac{\Gamma_f^{(A)}}{\Gamma_A},
+]
+
+the same control field suppresses fission.
+
+This immediately establishes a minimal control criterion:
+
+[
+\boxed{
+\frac{\Gamma_f^{(A)}}{\Gamma_A}
+\neq
+\frac{\Gamma_f^{(B)}}{\Gamma_B}
+}
+]
+
+together with
+
+[
+\boxed{
+W_{A\rightarrow B}
+\neq0.
+}
+]
+
+No long-lived quantum coherence is required.
+
+---
+
+## 4.2 Control efficiency
+
+We define a dimensionless microscopic control efficiency
+
+[
+\eta_Q
+======
+
+\frac{
+P_f^{(Q)}-P_f^{(0)}
+}{
+P_f^{(0)}
+},
+]
+
+where (P_f^{(Q)}) denotes the fission probability in the presence of the external actuator.
+
+Thus,
+
+[
+\eta_Q>0
+]
+
+corresponds to enhancement of fission,
+
+while
+
+[
+\eta_Q<0
+]
+
+corresponds to suppression.
+
+The magnitude
+
+[
+|\eta_Q|
+]
+
+provides a natural first measure of the effectiveness of nuclear-state control.
+
+A value such as
+
+[
+|\eta_Q|\ll1
+]
+
+would indicate that the microscopic effect is probably irrelevant at reactor scale unless extraordinarily large numbers of nuclei can be controlled.
+
+Conversely, an effect approaching
+
+[
+|\eta_Q|
+\sim
+10^{-2}-1
+]
+
+would immediately motivate investigation of macroscopic consequences.
+
+The purpose of introducing (\eta_Q) is not to assume that such large values can be obtained, but to define a quantity that can be calculated from microscopic nuclear models and ultimately measured experimentally.
+
+---
+
+## 4.3 Competition between control and relaxation
+
+Population transfer must occur before the nuclear system loses memory of the externally prepared state.
+
+We therefore introduce a characteristic control timescale
+
+[
+\tau_Q
+\sim
+\frac{1}{W_Q}
+]
+
+and a characteristic intrinsic relaxation or equilibration timescale
+
+[
+\tau_{\mathrm{eq}}.
+]
+
+For nuclear-state manipulation to influence fission before equilibration erases the prepared state, a necessary condition is approximately
+
+[
+\boxed{
+\tau_Q
+\lesssim
+\tau_{\mathrm{eq}}
+}
+]
+
+or equivalently
+
+[
+\boxed{
+W_Q
+\gtrsim
+\Gamma_{\mathrm{eq}}.
+}
+]
+
+This relation may prove to be one of the most restrictive conditions in realistic fissile nuclei.
+
+If instead
+
+[
+\tau_Q
+\gg
+\tau_{\mathrm{eq}},
+]
+
+the externally induced redistribution is erased before it can affect the subsequent fission dynamics.
+
+The competition
+
+[
+\text{external control}
+\quad\text{vs.}\quad
+\text{intrinsic equilibration}
+]
+
+is therefore a central dimensionless parameter of the theory.
+
+We define
+
+[
+\mathcal C_Q
+============
+
+\frac{W_Q}{\Gamma_{\mathrm{eq}}}.
+]
+
+The regimes
+
+[
+\mathcal C_Q\ll1,
+]
+
+[
+\mathcal C_Q\sim1,
+]
+
+and
+
+[
+\mathcal C_Q\gg1
+]
+
+correspond respectively to ineffective, competing and dominant external control.
+
+---
+
+## 4.4 Coherent two-state model
+
+The population model can be extended to include genuine quantum coherence.
+
+Consider the Hamiltonian
+
+[
+H(t)
+====
+
+\frac{\hbar}{2}
+\begin{pmatrix}
+-\Delta & \Omega(t)e^{-i\phi(t)}
+\
+\Omega(t)e^{i\phi(t)} & \Delta
+\end{pmatrix},
+]
+
+where
+
+[
+\Omega(t)
+]
+
+is the externally controlled Rabi coupling,
+
+[
+\Delta
+]
+
+is the detuning between the applied field and the nuclear transition,
+
+and
+
+[
+\phi(t)
+]
+
+is the controllable phase.
+
+The nuclear state is described by a density matrix
+
+[
+\rho
+====
+
+\begin{pmatrix}
+\rho_{AA} & \rho_{AB}
+\
+\rho_{BA} & \rho_{BB}
+\end{pmatrix}.
+]
+
+Its evolution may be represented schematically by a master equation
+
+[
+\frac{d\rho}{dt}
+================
+
+-\frac{i}{\hbar}[H,\rho]
++
+\mathcal L_{\mathrm{decay}}[\rho]
++
+\mathcal L_{\mathrm{decoh}}[\rho].
+]
+
+The first term describes coherent external control.
+
+The second represents irreversible nuclear decay, including fission and competing channels.
+
+The third represents decoherence and intrinsic equilibration.
+
+The instantaneous fission rate becomes
+
+[
+r_f(t)
+======
+
+\Gamma_f^{(A)}\rho_{AA}(t)
++
+\Gamma_f^{(B)}\rho_{BB}(t)
++
+r_f^{(\mathrm{int})}(t),
+]
+
+where
+
+[
+r_f^{(\mathrm{int})}
+]
+
+represents any interference contribution between amplitudes leading from (A) and (B) into common fission channels.
+
+If such common channels exist, one may schematically write
+
+[
+r_f^{(\mathrm{int})}
+\propto
+2,
+\mathrm{Re}
+\left[
+\rho_{AB}
+A_{A\rightarrow f}
+A_{B\rightarrow f}^{*}
+\right].
+]
+
+The important consequence is that the fission probability may then depend not only on populations but also on phase.
+
+Thus,
+
+[
+P_f
+===
+
+P_f(\Omega,\Delta,\phi).
+]
+
+In such a regime, changing the phase of an external field could modify the fission probability even without changing the total excitation deposited in the nucleus.
+
+Observation of
+
+[
+\frac{\partial P_f}{\partial\phi}\neq0
+]
+
+would therefore constitute a particularly strong signature of genuine coherent control of fission.
+
+---
+
+## 4.5 Three physically distinct regimes
+
+The minimal model naturally identifies three regimes.
+
+### Regime I — No nuclear-state control
+
+If
+
+[
+W_Q
+\ll
+\Gamma_{\mathrm{eq}},
+]
+
+the externally driven dynamics is negligible.
+
+The nuclear-state distribution rapidly approaches its natural statistical form, and
+
+[
+P_f^{(Q)}
+\simeq
+P_f^{(0)}.
+]
+
+This corresponds to conventional reactor physics.
+
+### Regime II — Population control
+
+If external excitation produces significant redistribution among nuclear states before decay or equilibration,
+
+[
+W_Q
+\gtrsim
+\Gamma_{\mathrm{eq}},
+]
+
+but coherence is rapidly destroyed, the density matrix becomes approximately diagonal.
+
+Then
+
+[
+P_f
+===
+
+\sum_i p_i P_f^{(i)}.
+]
+
+Control exists, but it is effectively classical at the ensemble level.
+
+This is the weakest and potentially most experimentally accessible form of nuclear-state fission control.
+
+### Regime III — Coherent control
+
+If
+
+[
+\Omega
+\gtrsim
+\Gamma_{\mathrm{decoh}}
+]
+
+for sufficiently long times, off-diagonal density-matrix elements survive,
+
+[
+\rho_{AB}\neq0.
+]
+
+The fission probability may then depend on quantum interference and the phase of the external actuator.
+
+This regime constitutes the closest nuclear analogue to coherent control techniques used in atomic and molecular physics.
+
+It is also the most demanding physical regime.
+
+---
+
+## 4.6 Coupling the microscopic model to a neutron field
+
+The previous model describes the response of a single nuclear ensemble.
+
+To connect it to reactor physics, consider a neutron flux
+
+[
+\Phi(E,t).
+]
+
+Instead of assigning a fixed microscopic fission cross section to the fuel, we define
+
+[
+\sigma_f^{\mathrm{eff}}
+=======================
+
+\sigma_f^{\mathrm{eff}}
+(E,\rho_N).
+]
+
+For the two-state population model,
+
+[
+\sigma_f^{\mathrm{eff}}(E,t)
+============================
+
+p_A(t)\sigma_f^{(A)}(E)
++
+p_B(t)\sigma_f^{(B)}(E).
+]
+
+The macroscopic fission rate becomes
+
+[
+R_f(t)
+======
+
+N_f
+\int
+\Phi(E,t)
+\left[
+p_A(t)\sigma_f^{(A)}(E)
++
+p_B(t)\sigma_f^{(B)}(E)
+\right]
+dE.
+]
+
+The external control therefore enters the reactor equations through
+
+[
+p_i=p_i[u_Q(t)].
+]
+
+This can be represented schematically as
+
+[
+u_Q(t)
+\rightarrow
+p_i(t)
+\rightarrow
+\sigma_f^{\mathrm{eff}}(t)
+\rightarrow
+R_f(t).
+]
+
+The conventional and quantum-control channels coexist:
+
+[
+\Phi(E,t)
+]
+
+remains a dynamical variable determined by neutron transport, while
+
+[
+\sigma_f^{\mathrm{eff}}(E,t)
+]
+
+acquires an additional controlled dependence on the nuclear state.
+
+---
+
+## 4.7 Effective reactivity contribution
+
+To connect the microscopic effect directly to reactor kinetics, suppose that external control induces
+
+[
+\sigma_f
+\rightarrow
+\sigma_f+\delta\sigma_f.
+]
+
+The corresponding perturbation of the macroscopic fission cross section is
+
+[
+\delta\Sigma_f
+==============
+
+N_f\delta\sigma_f.
+]
+
+For a small perturbation, the resulting change in the effective multiplication factor may be written formally as
+
+[
+\delta k_{\mathrm{eff}}
+\simeq
+\frac{\partial k_{\mathrm{eff}}}
+{\partial\Sigma_f}
+\delta\Sigma_f,
+]
+
+with all other system variables held fixed.
+
+The associated reactivity perturbation is
+
+[
+\delta\rho_Q
+\simeq
+\frac{\delta k_{\mathrm{eff}}}
+{k_{\mathrm{eff}}^2}.
+]
+
+At criticality,
+
+[
+k_{\mathrm{eff}}\simeq1,
+]
+
+so approximately
+
+[
+\delta\rho_Q
+\simeq
+\delta k_{\mathrm{eff}}.
+]
+
+The quantity
+
+[
+\boxed{
+\rho_Q
+}
+]
+
+can therefore be interpreted as an effective reactivity contribution arising from nuclear-state manipulation.
+
+This does not imply that quantum reactivity is additive under arbitrary conditions. The definition is intended as a first-order perturbative quantity suitable for comparison with conventional reactivity effects.
+
+---
+
+## 4.8 Extension of point-reactor kinetics
+
+At the macroscopic level, ordinary point kinetics may be written as
+
+[
+\frac{dn}{dt}
+=============
+
+\frac{\rho-\beta}{\Lambda}n
++
+\sum_i \lambda_i C_i,
+]
+
+where (n) denotes the neutron population.
+
+In the present framework,
+
+[
+\rho
+====
+
+\rho_{\mathrm{conv}}
++
+\rho_Q.
+]
+
+The neutron equation therefore becomes
+
+[
+\frac{dn}{dt}
+=============
+
+\frac{
+\rho_{\mathrm{conv}}
++
+\rho_Q
+------
+
+\beta
+}{
+\Lambda
+}
+n
++
+\sum_i \lambda_i C_i.
+]
+
+However, unlike a conventional externally prescribed reactivity insertion,
+
+[
+\rho_Q
+]
+
+has its own microscopic dynamics.
+
+Schematically,
+
+[
+\rho_Q
+======
+
+\rho_Q[\rho_N(t)],
+]
+
+while
+
+[
+\frac{d\rho_N}{dt}
+==================
+
+\mathcal F
+[
+\rho_N,
+u_Q,
+\Phi,
+T,\ldots
+].
+]
+
+The combined system therefore takes the form
+
+[
+\boxed{
+\begin{aligned}
+\dot{\rho}*N
+&=
+\mathcal F(\rho_N,u_Q,\Phi,\ldots),
+[4pt]
+\rho_Q
+&=
+\mathcal G(\rho_N),
+[4pt]
+\dot n
+&=
+\frac{
+\rho*{\mathrm{conv}}+\rho_Q-\beta
+}{\Lambda}n
++
+\sum_i\lambda_iC_i.
+\end{aligned}
+}
+]
+
+This represents the minimal mathematical architecture of a reactor whose nuclear fuel possesses an externally controllable internal state.
+
+---
+
+## 4.9 Feedback between neutron field and nuclear state
+
+The model also reveals an important point that is absent from a simple external-reactivity picture.
+
+The coupling may be bidirectional.
+
+The external field modifies the nuclear state,
+
+[
+u_Q
+\rightarrow
+\rho_N,
+]
+
+but the neutron field itself may also modify that state through excitation, absorption and compound-nucleus formation:
+
+[
+\Phi
+\rightarrow
+\rho_N.
+]
+
+At the same time,
+
+[
+\rho_N
+\rightarrow
+\sigma_f^{\mathrm{eff}}
+\rightarrow
+\Phi.
+]
+
+The complete structure is therefore a feedback loop:
+
+[
+\boxed{
+u_Q
+\rightarrow
+\rho_N
+\rightarrow
+\sigma_f^{\mathrm{eff}}
+\rightarrow
+\Phi
+\rightarrow
+\rho_N
+}
+]
+
+rather than a simple one-way actuator.
+
+This feedback may generate dynamical behavior that has no exact analogue in conventional reactor control.
+
+Whether such behavior is relevant depends entirely on the strength and timescale of the microscopic coupling.
+
+---
+
+## 4.10 Minimal falsifiable prediction
+
+The proposed framework admits a simple falsification criterion.
+
+Consider two otherwise identical experiments on a fissile target exposed to the same incident neutron distribution,
+
+[
+\Phi_1(E)
+=========
+
+\Phi_2(E).
+]
+
+In experiment 1, no state-control field is applied.
+
+In experiment 2, an external control protocol prepares a different nuclear-state distribution while leaving the incident neutron field unchanged.
+
+The hypothesis predicts that, under suitable conditions,
+
+[
+\rho_N^{(1)}
+\neq
+\rho_N^{(2)}
+]
+
+should produce
+
+[
+P_f^{(1)}
+\neq
+P_f^{(2)}.
+]
+
+Equivalently,
+
+[
+\boxed{
+\left.
+\frac{\partial P_f}
+{\partial u_Q}
+\right|_{\Phi}
+\neq0.
+}
+]
+
+This derivative provides perhaps the simplest mathematical statement of the entire proposal.
+
+The question is not merely whether radiation can itself induce fission.
+
+Rather, one asks whether an external interaction can modify the subsequent fission response to an otherwise unchanged neutron field.
+
+A particularly strong experimental signature would be obtained if the modification depended on a control parameter such as pulse timing, detuning or phase,
+
+[
+P_f
+===
+
+P_f(u_Q),
+]
+
+while the total neutron exposure and deposited excitation energy were held fixed.
+
+---
+
+## 4.11 What the minimal model establishes
+
+The model does not demonstrate that nuclear-state control is technologically feasible.
+
+It establishes instead that the concept can be expressed as a well-defined dynamical problem.
+
+The minimum ingredients are:
+
+1. at least two nuclear configurations with distinguishable fission responses;
+
+2. an externally controllable transition or redistribution mechanism between them;
+
+3. a control rate competitive with intrinsic relaxation;
+
+4. a non-zero change in the ensemble-averaged fission probability;
+
+5. for reactor relevance, a sufficiently large induced modification of the macroscopic fission cross section.
+
+The hypothesis therefore reduces to a quantitative search for the parameter domain
+
+[
+\boxed{
+\left{
+\Delta P_f,,
+W_Q,,
+\Gamma_{\mathrm{eq}},,
+f_Q
+\right},
+}
+]
+
+where (f_Q) denotes the fraction of fissile nuclei effectively addressed by the external actuator.
+
+If no physically accessible nuclear system satisfies these conditions, nuclear-state control cannot become relevant to reactor physics.
+
+If such a system exists, however, the microscopic nuclear state becomes an additional dynamical variable in the theory of controlled fission.

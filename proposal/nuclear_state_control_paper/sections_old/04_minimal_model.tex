@@ -1,0 +1,421 @@
+\section{Minimal Theoretical Model}
+\label{sec:minimal_model}
+
+The purpose of this section is to construct the simplest dynamical model capable of representing nuclear-state control of fission. The model is intentionally abstract and does not initially assume a specific isotope.
+
+Consider two nuclear configurations,
+\begin{equation}
+|A\rangle,
+\qquad
+|B\rangle,
+\end{equation}
+with different fission decay rates,
+\begin{equation}
+\Gamma_f^{(A)}
+\neq
+\Gamma_f^{(B)}.
+\end{equation}
+
+An external actuator couples the two states,
+\begin{equation}
+|A\rangle
+\overset{u_Q(t)}{\longleftrightarrow}
+|B\rangle.
+\end{equation}
+
+\subsection{Population-based two-state model}
+
+Let $p_A(t)$ and $p_B(t)$ denote the two populations. The external actuator produces transition rates
+\begin{equation}
+W_{A\rightarrow B}(t),
+\qquad
+W_{B\rightarrow A}(t).
+\end{equation}
+
+Both states may decay through fission and through competing channels. Define
+\begin{align}
+\Gamma_A &= \Gamma_f^{(A)}+\Gamma_d^{(A)},\\
+\Gamma_B &= \Gamma_f^{(B)}+\Gamma_d^{(B)}.
+\end{align}
+
+The population equations are
+\begin{align}
+\frac{dp_A}{dt}
+&=
+-
+W_{A\rightarrow B}p_A
++
+W_{B\rightarrow A}p_B
+-
+\Gamma_Ap_A,
+\\
+\frac{dp_B}{dt}
+&=
+W_{A\rightarrow B}p_A
+-
+W_{B\rightarrow A}p_B
+-
+\Gamma_Bp_B.
+\end{align}
+
+The instantaneous fission rate for the nuclear ensemble is
+\begin{equation}
+r_f(t)
+=
+\Gamma_f^{(A)}p_A(t)
++
+\Gamma_f^{(B)}p_B(t),
+\end{equation}
+and the integrated fission probability is
+\begin{equation}
+P_f
+=
+\int_0^\infty r_f(t)\,dt.
+\end{equation}
+
+For an initially populated state $A$ and no external control,
+\begin{equation}
+P_f^{(0)}
+=
+\frac{\Gamma_f^{(A)}}{\Gamma_A}.
+\end{equation}
+
+If population can be transferred to state $B$, control is possible whenever the two branching ratios differ:
+\begin{equation}
+\boxed{
+\frac{\Gamma_f^{(A)}}{\Gamma_A}
+\neq
+\frac{\Gamma_f^{(B)}}{\Gamma_B}
+}
+\end{equation}
+together with
+\begin{equation}
+\boxed{
+W_{A\rightarrow B}\neq0.
+}
+\end{equation}
+
+No long-lived quantum coherence is required.
+
+\subsection{Microscopic control efficiency}
+
+We define a dimensionless microscopic control efficiency,
+\begin{equation}
+\eta_Q
+=
+\frac{P_f^{(Q)}-P_f^{(0)}}{P_f^{(0)}},
+\end{equation}
+where $P_f^{(Q)}$ denotes the fission probability under external actuation.
+
+Positive $\eta_Q$ corresponds to enhanced fission, negative $\eta_Q$ to suppression. The quantity provides a direct metric that can be calculated microscopically or measured experimentally.
+
+\subsection{Competition between control and relaxation}
+
+State transfer must compete with intrinsic relaxation and equilibration. Introduce
+\begin{equation}
+\tau_Q\sim\frac{1}{W_Q}
+\end{equation}
+and
+\begin{equation}
+\tau_{\mathrm{eq}}
+\sim
+\frac{1}{\Gamma_{\mathrm{eq}}}.
+\end{equation}
+
+A necessary condition for the prepared state to influence fission is approximately
+\begin{equation}
+\tau_Q
+\lesssim
+\tau_{\mathrm{eq}},
+\end{equation}
+or
+\begin{equation}
+W_Q
+\gtrsim
+\Gamma_{\mathrm{eq}}.
+\end{equation}
+
+We therefore define
+\begin{equation}
+\mathcal{C}_Q
+=
+\frac{W_Q}{\Gamma_{\mathrm{eq}}},
+\end{equation}
+with $\mathcal{C}_Q\ll1$, $\sim1$, and $\gg1$ representing ineffective, competing, and dominant external control, respectively.
+
+\subsection{Coherent two-state extension}
+
+A coherent version of the model may be represented by
+\begin{equation}
+H(t)
+=
+\frac{\hbar}{2}
+\begin{pmatrix}
+-\Delta &
+\Omega(t)e^{-i\phi(t)}
+\\
+\Omega(t)e^{i\phi(t)} &
+\Delta
+\end{pmatrix},
+\end{equation}
+where $\Omega(t)$ is a Rabi coupling, $\Delta$ the detuning, and $\phi(t)$ an externally controlled phase.
+
+The density matrix evolves according to a master equation,
+\begin{equation}
+\frac{d\rho}{dt}
+=
+-\frac{i}{\hbar}[H,\rho]
++
+\mathcal{L}_{\mathrm{decay}}[\rho]
++
+\mathcal{L}_{\mathrm{decoh}}[\rho].
+\end{equation}
+
+The fission rate can then contain both population and interference contributions,
+\begin{equation}
+r_f(t)
+=
+\Gamma_f^{(A)}\rho_{AA}
++
+\Gamma_f^{(B)}\rho_{BB}
++
+r_f^{(\mathrm{int})}.
+\end{equation}
+
+If both states feed common fission channels,
+\begin{equation}
+r_f^{(\mathrm{int})}
+\propto
+2\,\mathrm{Re}
+\left[
+\rho_{AB}
+A_{A\rightarrow f}
+A_{B\rightarrow f}^{\ast}
+\right].
+\end{equation}
+
+A response satisfying
+\begin{equation}
+\frac{\partial P_f}{\partial\phi}\neq0
+\end{equation}
+would constitute a particularly strong signature of genuine coherent fission control.
+
+\subsection{Three regimes}
+
+The model identifies three qualitative regimes.
+
+\paragraph{Regime I: no nuclear-state control.}
+If
+\begin{equation}
+W_Q\ll\Gamma_{\mathrm{eq}},
+\end{equation}
+the externally driven redistribution is negligible and
+\begin{equation}
+P_f^{(Q)}\simeq P_f^{(0)}.
+\end{equation}
+
+\paragraph{Regime II: population control.}
+If externally driven redistribution competes with relaxation but coherence is rapidly lost, the density matrix is effectively diagonal and control proceeds through state populations.
+
+\paragraph{Regime III: coherent control.}
+If the coherent coupling satisfies approximately
+\begin{equation}
+\Omega\gtrsim\Gamma_{\mathrm{decoh}}
+\end{equation}
+over the relevant interval, phase-sensitive interference may become observable.
+
+The second regime is sufficient for the general reactor-control framework and is considerably less demanding than the third.
+
+\subsection{Coupling the microscopic model to a neutron field}
+
+For a two-state population model,
+\begin{equation}
+\sigma_f^{\mathrm{eff}}(E,t)
+=
+p_A(t)\sigma_f^{(A)}(E)
++
+p_B(t)\sigma_f^{(B)}(E).
+\end{equation}
+
+The macroscopic fission rate becomes
+\begin{equation}
+R_f(t)
+=
+N_f
+\int
+\Phi(E,t)
+\left[
+p_A(t)\sigma_f^{(A)}(E)
++
+p_B(t)\sigma_f^{(B)}(E)
+\right]
+dE.
+\label{eq:macro_two_state}
+\end{equation}
+
+Thus,
+\begin{equation}
+u_Q(t)
+\rightarrow
+p_i(t)
+\rightarrow
+\sigma_f^{\mathrm{eff}}(t)
+\rightarrow
+R_f(t).
+\end{equation}
+
+\subsection{Effective reactivity contribution}
+
+Suppose external control induces
+\begin{equation}
+\sigma_f
+\rightarrow
+\sigma_f+\delta\sigma_f.
+\end{equation}
+
+Then
+\begin{equation}
+\delta\Sigma_f
+=
+N_f\delta\sigma_f.
+\end{equation}
+
+For a sufficiently small perturbation,
+\begin{equation}
+\delta k_{\mathrm{eff}}
+\simeq
+\frac{\partial k_{\mathrm{eff}}}{\partial\Sigma_f}
+\delta\Sigma_f.
+\end{equation}
+
+Since
+\begin{equation}
+\rho
+=
+1-\frac{1}{k_{\mathrm{eff}}},
+\end{equation}
+the associated first-order reactivity change is
+\begin{equation}
+\delta\rho_Q
+\simeq
+\frac{\delta k_{\mathrm{eff}}}{k_{\mathrm{eff}}^2}.
+\end{equation}
+
+Near criticality,
+\begin{equation}
+k_{\mathrm{eff}}\simeq1,
+\end{equation}
+and therefore
+\begin{equation}
+\delta\rho_Q\simeq\delta k_{\mathrm{eff}}.
+\end{equation}
+
+\subsection{Extension of point-reactor kinetics}
+
+Ordinary point kinetics may be written as
+\begin{equation}
+\frac{dn}{dt}
+=
+\frac{\rho-\beta}{\Lambda}n
++
+\sum_i\lambda_i C_i.
+\end{equation}
+
+In the present framework,
+\begin{equation}
+\rho
+=
+\rho_{\mathrm{conv}}
++
+\rho_Q,
+\end{equation}
+so that
+\begin{equation}
+\frac{dn}{dt}
+=
+\frac{
+\rho_{\mathrm{conv}}
++
+\rho_Q
+-
+\beta
+}{
+\Lambda
+}n
++
+\sum_i\lambda_iC_i.
+\label{eq:extended_point_kinetics}
+\end{equation}
+
+Unlike an externally prescribed conventional reactivity insertion, $\rho_Q$ has its own microscopic dynamics:
+\begin{align}
+\dot{\rho}_N
+&=
+\mathcal{F}(\rho_N,u_Q,\Phi,\ldots),
+\\
+\rho_Q
+&=
+\mathcal{G}(\rho_N),
+\\
+\dot n
+&=
+\frac{\rho_{\mathrm{conv}}+\rho_Q-\beta}{\Lambda}n
++
+\sum_i\lambda_iC_i.
+\end{align}
+
+This system is the minimal mathematical architecture of a multiplying fission system whose fuel possesses an externally controllable internal nuclear-state variable.
+
+\subsection{Feedback}
+
+The coupling may be bidirectional. External actuation modifies the nuclear state,
+\begin{equation}
+u_Q\rightarrow\rho_N,
+\end{equation}
+while the neutron field itself can alter nuclear-state populations through absorption and compound-nucleus formation,
+\begin{equation}
+\Phi\rightarrow\rho_N.
+\end{equation}
+At the same time,
+\begin{equation}
+\rho_N
+\rightarrow
+\sigma_f^{\mathrm{eff}}
+\rightarrow
+\Phi.
+\end{equation}
+
+The resulting structure is therefore a feedback loop rather than a purely feed-forward actuator.
+
+\subsection{Minimal falsifiable prediction}
+
+Consider two otherwise identical experiments on a fissile target exposed to the same neutron distribution,
+\begin{equation}
+\Phi_1(E)=\Phi_2(E).
+\end{equation}
+
+If an external protocol prepares different nuclear-state distributions,
+\begin{equation}
+\rho_N^{(1)}
+\neq
+\rho_N^{(2)},
+\end{equation}
+the hypothesis predicts, under suitable conditions,
+\begin{equation}
+P_f^{(1)}
+\neq
+P_f^{(2)}.
+\end{equation}
+
+Equivalently,
+\begin{equation}
+\boxed{
+\left.
+\frac{\partial P_f}{\partial u_Q}
+\right|_{\Phi}
+\neq0.
+}
+\label{eq:falsifiable_prediction}
+\end{equation}
+
+Equation~\eqref{eq:falsifiable_prediction} is the simplest operational statement of the proposal. It separates state preparation from direct radiation-induced fission: the incident neutron field is held fixed while an independent actuator modifies the nuclear-state distribution.
